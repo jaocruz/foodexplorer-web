@@ -6,13 +6,13 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { Stepper } from './components/stepper'
+import { Header } from './components/header'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Stepper/>
+      <Header/>
     </ThemeProvider>
   </React.StrictMode>,
 )

@@ -41,14 +41,14 @@ export default {
   FONTS: {
     POPPINS_100medium: css `
       font-family: "Poppins";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 14px;
       line-height: 24px;
     `,
 
     POPPINS_200medium: css `
       font-family: "Poppins";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 20px;
       line-height: 160%;
     `,
@@ -62,21 +62,21 @@ export default {
 
     POPPINS_300regular: css `
       font-family: "Poppins";
-      font-weight: 300;
+      font-weight: 400;
       font-size: 24px;
       line-height: 140%;
     `,
 
     POPPINS_400medium: css `
       font-family: "Poppins";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 32px;
       line-height: 140%;
     `,
 
     POPPINS_500medium: css `
       font-family: "Poppins";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 40px;
       line-height: 140%;
     `,
@@ -141,7 +141,7 @@ export default {
       font-family: "Roboto";
       font-weight: 700;
       font-size: 42px;
-      line-height: 100%;
+      line-height: 160%;
     `,
   }
 }

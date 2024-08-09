@@ -26,5 +26,10 @@ export default createGlobalStyle`
 
   button, a {
     cursor: pointer;
+    border: none;
+  }
+
+  svg {
+    color: ${({theme}) => theme.COLORS.LIGHT_100};
   }
 `;

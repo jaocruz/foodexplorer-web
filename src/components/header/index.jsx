@@ -1,9 +1,9 @@
 import { Container, Brand } from "./styles";
 
 import { Button } from "../button";
+import { Input } from "../input";
 
-import { PiSignOut, PiHexagonFill } from "react-icons/pi";
-
+import { PiSignOut, PiHexagonFill, PiMagnifyingGlass  } from "react-icons/pi";
 
 export function Header(){
   return (
@@ -17,7 +17,7 @@ export function Header(){
         <span>admin</span>
       </Brand>
 
-      <input type="text" placeholder="Busque por pratos ou ingredientes"/>
+      <Input icon={PiMagnifyingGlass} placeholder="Busque por pratos ou ingredientes"/>
 
       <Button title="Novo prato"/>
 

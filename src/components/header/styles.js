@@ -12,26 +12,16 @@ export const Container = styled.header`
 
   background-color: ${({theme}) => theme.COLORS.DARK_600};
 
-  button {
-    width: 216px;
+  div {
+    justify-content: center;
+
+    &:focus-within svg, &:focus-within input {
+    transform: translateX(-125px);
   }
 
-  input {
-    width: 100%;
-    max-width: 581px;
-
-    height: 48px;
-    padding: 12px 14px;
-
-    border: none;
-    border-radius: 5px;
-
-    color: ${({theme}) => theme.COLORS.LIGHT_500};
-    background-color: ${({theme}) => theme.COLORS.DARK_900};
-
-    &::placeholder {
-      text-align: center;
-    }
+  }
+  button {
+    width: 216px;
   }
 `;
 

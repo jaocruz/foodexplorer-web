@@ -14,7 +14,7 @@ export const Container = styled.button`
 
   h1 {
     color: ${({theme}) => theme.COLORS.LIGHT_100};
-    ${({theme}) => theme.FONTS.POPPINS_100medium}
+    ${({theme}) => theme.FONTS.POPPINS_100medium};
   }
 
   &:hover {

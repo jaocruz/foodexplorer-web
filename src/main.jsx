@@ -6,16 +6,14 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { Button } from './components/button'
-import { PiReceipt } from 'react-icons/pi'
+import { IngredientTag } from './components/ingredient-tag'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Button
-        icon={PiReceipt}
-        title="Meu pedido (0)"
+      <IngredientTag
+        title="ingrediente"
       />
     </ThemeProvider>
   </React.StrictMode>,

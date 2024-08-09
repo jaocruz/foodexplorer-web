@@ -116,7 +116,7 @@ export default {
       line-height: 100%;
     `,
 
-    ROBOTO_BOLDbold: css `
+    ROBOTO_BIGbold: css `
       font-family: "Roboto";
       font-weight: 400;
       font-size: 20px;

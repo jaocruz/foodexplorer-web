@@ -1,24 +1,36 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
-  max-width: 581px;
-
-  height: 48px;
-
   display: flex;
-  align-items: center;
+  flex-direction: column;
 
-  gap: 14px;
-  padding: 12px 14px;
-  border-radius: 5px;
+  gap: 8px;
 
-  background-color: ${({theme}) => theme.COLORS.DARK_900};
-  transition: background-color 0.5s ease, outline-color 0.5s ease;
+  label {
+    ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
+    color: ${({theme}) => theme.COLORS.LIGHT_400};
+  }
+  
+  section {
+    width: 100%;
+    max-width: 581px;
 
-  &:focus-within {
-    background-color: ${({ theme }) => theme.COLORS.DARK_700};
-    outline: 1px solid ${({ theme }) => theme.COLORS.LIGHT_500};
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 5px;
+
+    background-color: ${({theme}) => theme.COLORS.DARK_900};
+    transition: background-color 0.5s ease, outline-color 0.5s ease;
+
+    &:focus-within {
+      background-color: ${({ theme }) => theme.COLORS.DARK_700};
+      outline: 1px solid ${({ theme }) => theme.COLORS.LIGHT_500};
+    }
   }
 
   svg {
@@ -27,7 +39,7 @@ export const Container = styled.div`
   }
 
   input {
-    width: 254px;
+    width: 100%;
     height: 100%;
 
     border: none;

@@ -6,13 +6,13 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { DishCard } from './components/dish-card'
+import { SignUp } from './pages/sign-up'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <DishCard/>
+      <SignUp/>
     </ThemeProvider>
   </React.StrictMode>,
 )

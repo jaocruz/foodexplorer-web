@@ -6,13 +6,13 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { Footer } from './components/footer'
+import { DishCard } from './components/dish-card'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Footer/>
+      <DishCard/>
     </ThemeProvider>
   </React.StrictMode>,
 )

@@ -132,7 +132,7 @@ export default {
 
     ROBOTO_BIGGESTregular: css `
       font-family: "Roboto";
-      font-weight: 300;
+      font-weight: 400;
       font-size: 32px;
       line-height: 160%;
     `,

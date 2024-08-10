@@ -83,14 +83,14 @@ export default {
 
     ROBOTO_SMALLESTregular: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 12px;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLERregular: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 14px;
       line-height: 160%;
     `,
@@ -104,21 +104,21 @@ export default {
 
     ROBOTO_SMALLspaced: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 16px;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLregular: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 16px;
       line-height: 100%;
     `,
 
     ROBOTO_BIGbold: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 700;
       font-size: 20px;
       line-height: 160%;
     `,
@@ -132,7 +132,7 @@ export default {
 
     ROBOTO_BIGGESTregular: css `
       font-family: "Roboto";
-      font-weight: 400;
+      font-weight: 300;
       font-size: 32px;
       line-height: 160%;
     `,

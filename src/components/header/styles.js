@@ -15,11 +15,15 @@ export const Container = styled.header`
   div {
     justify-content: center;
 
-    &:focus-within svg, &:focus-within input {
-    transform: translateX(-125px);
-  }
+    &:focus-within input {
+      transform: translateX(-50%);
+    }
 
+    &:focus-within svg {
+      transform: translateX(-520%);
+    }
   }
+  
   button {
     width: 216px;
   }

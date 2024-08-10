@@ -6,13 +6,13 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { Header } from './components/header'
+import { Footer } from './components/footer'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Header/>
+      <Footer/>
     </ThemeProvider>
   </React.StrictMode>,
 )

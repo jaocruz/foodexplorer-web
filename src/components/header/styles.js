@@ -5,27 +5,36 @@ export const Container = styled.header`
   padding: 24px 123px;
 
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  gap: 32px;
 
   background-color: ${({theme}) => theme.COLORS.DARK_600};
 
-  div {
-    justify-content: center;
+  main {
+    width: 100%;
+    max-width: 1366px;
 
-    &:focus-within input {
-      transform: translateX(-50%);
+    gap: 32px;
+    display: flex;
+    align-items: center;
+
+    > div {
+
+      section {
+        justify-content: center;
+
+        &:focus-within svg {
+          transform: translateX(-254px);
+        }
+
+        &:focus-within input {
+          transform: translateX(-252px);
+        }
+      }
     }
 
-    &:focus-within svg {
-      transform: translateX(-520%);
+    > button {
+      width: 216px;
     }
-  }
-  
-  button {
-    width: 216px;
   }
 `;
 
@@ -38,22 +47,22 @@ export const Brand = styled.div`
 
   white-space: nowrap;
 
-  .main-brand {
+  > .main-brand {
     display: flex;
     align-items: center;
 
     column-gap: 10px;
+
+    svg {
+      color: ${({theme}) => theme.COLORS.CAKE_100};
+    }
+
+    h1 {
+      ${({theme}) => theme.FONTS.ROBOTO_BIGGERbold};
+    }
   }
 
-  svg {
-    color: ${({theme}) => theme.COLORS.CAKE_100};
-  }
-
-  h1 {
-    ${({theme}) => theme.FONTS.ROBOTO_BIGGERbold};
-  }
-
-  span {
+  > span {
     margin-top: -6px;
     text-align: right;
     color: ${({theme}) => theme.COLORS.CAKE_200};

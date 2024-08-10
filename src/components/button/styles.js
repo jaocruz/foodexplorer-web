@@ -9,6 +9,7 @@ export const Container = styled.button`
   padding: 12px 24px;
 
   gap: 8px;
+  flex-shrink: 0;
 
   white-space: nowrap;
   transition: background-color 0.4s;

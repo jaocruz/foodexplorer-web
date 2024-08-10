@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   gap: 8px;
+  width: 100%;
 
   label {
     ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
@@ -13,8 +14,6 @@ export const Container = styled.div`
   
   section {
     width: 100%;
-    max-width: 581px;
-
     height: 48px;
 
     display: flex;
@@ -34,17 +33,17 @@ export const Container = styled.div`
   }
 
   svg {
-    transition: transform 0.5s ease;
+    transition: transform 1s ease;
     color: ${({theme}) => theme.COLORS.LIGHT_400};
   }
 
   input {
-    width: 100%;
+    width: 254px;
     height: 100%;
 
     border: none;
 
-    transition: transform 0.5s ease;
+    transition: transform 1s ease;
 
     background-color: transparent;
     color: ${({theme}) => theme.COLORS.LIGHT_400};

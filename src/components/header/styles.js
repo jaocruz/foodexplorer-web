@@ -11,7 +11,7 @@ export const Container = styled.header`
 
   main {
     width: 100%;
-    max-width: 1366px;
+    max-width: 1120px;
 
     gap: 32px;
     display: flex;
@@ -23,11 +23,11 @@ export const Container = styled.header`
         justify-content: center;
 
         &:focus-within svg {
-          transform: translateX(-254px);
+          transform: translateX(-130px);
         }
 
         &:focus-within input {
-          transform: translateX(-252px);
+          transform: translateX(-128px);
         }
       }
     }

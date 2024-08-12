@@ -10,6 +10,7 @@ export default createGlobalStyle`
   }
 
   body {
+    height: 100vh;
     color: ${({theme}) => theme.COLORS.LIGHT_100};
     background-color: ${({theme}) => theme.COLORS.DARK_400};
   }
@@ -18,6 +19,19 @@ export default createGlobalStyle`
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     outline: none;
+  }
+
+  #root {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 96px 1fr 78px;
+  }
+
+  main {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    max-width: 1120px;
   }
 
   a {

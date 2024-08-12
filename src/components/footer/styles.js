@@ -11,7 +11,7 @@ export const Container = styled.footer`
 
   main {
     width: 100%;
-    max-width: 1366px;
+    max-width: 1120px;
     
     display: flex;
     align-items: center;

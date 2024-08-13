@@ -8,7 +8,7 @@ import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { IngredientButton } from "../../components/ingredient-button";
 
-export function AddDish(){
+export function EditDish(){
   return (
     <>
     <Header/>
@@ -60,6 +60,7 @@ export function AddDish(){
         </div>
 
         <div className="fourth-row">
+          <Button title="Excluir prato"/>
           <Button title="Salvar alterações" disabled/>
         </div>
       </Form>

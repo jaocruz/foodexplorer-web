@@ -11,12 +11,13 @@ import { IngredientButton } from "./components/ingredient-button"
 import { Home } from './pages/home'
 import { DishDetails } from './pages/dish-details'
 import { AddDish } from './pages/add-dish'
+import { EditDish } from './pages/edit-dish'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <AddDish/>
+      <EditDish/>
     </ThemeProvider>
   </React.StrictMode>,
 )

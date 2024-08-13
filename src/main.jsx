@@ -7,12 +7,13 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from './styles/global'
 
 import { Home } from './pages/home'
+import { DishDetails } from './pages/dish-details'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Home/>
+      <DishDetails/>
     </ThemeProvider>
   </React.StrictMode>,
 )

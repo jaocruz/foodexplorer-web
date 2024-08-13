@@ -13,6 +13,23 @@ export default createGlobalStyle`
     height: 100vh;
     color: ${({theme}) => theme.COLORS.LIGHT_100};
     background-color: ${({theme}) => theme.COLORS.DARK_400};
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: ${({theme}) => theme.COLORS.DARK_800};
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   }
 
   body, input, button, textarea {

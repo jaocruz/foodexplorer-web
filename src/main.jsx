@@ -6,7 +6,8 @@ import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
 
-import { IngredientButton } from "./components/ingredient-button"
+import { SignUp } from './pages/sign-up'
+import { SignIn } from './pages/sign-in'
 
 import { Home } from './pages/home'
 import { DishDetails } from './pages/dish-details'
@@ -17,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <EditDish/>
+      <SignUp/>
     </ThemeProvider>
   </React.StrictMode>,
 )

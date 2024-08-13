@@ -22,7 +22,8 @@ export default {
     DARK_900: "#0D1D25",
     DARK_1000: "#192227",
 
-    GRADIENT_100: "linear-gradient(to left, rgba(0, 10, 15, 0), rgba(0, 10, 15, 1))",
+    GRADIENT_100l: "linear-gradient(to left, rgba(0, 10, 15, 0), rgba(0, 10, 15, 1))",
+    GRADIENT_100r: "linear-gradient(to right, rgba(0, 10, 15, 0), rgba(0, 10, 15, 1))",
     GRADIENT_200: "linear-gradient(to bottom, rgba(9, 30, 38, 1), rgba(0, 19, 28, 1))",
 
     TOMATO_100: "#750310",

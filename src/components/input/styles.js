@@ -14,15 +14,15 @@ export const Container = styled.div`
   
   section {
     width: 100%;
-    height: 48px;
 
     display: flex;
     align-items: center;
 
     gap: 14px;
-    padding: 12px 14px;
+    padding: 0 14px;
     border-radius: 5px;
 
+    ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
     background-color: ${({theme}) => theme.COLORS.DARK_900};
     transition: background-color 0.5s ease, outline-color 0.5s ease;
 
@@ -33,13 +33,14 @@ export const Container = styled.div`
   }
 
   svg {
+    flex-shrink: 0;
     transition: transform 1s ease;
     color: ${({theme}) => theme.COLORS.LIGHT_400};
   }
 
   input {
     width: 254px;
-    height: 100%;
+    height: 48px;
 
     border: none;
 
@@ -47,5 +48,33 @@ export const Container = styled.div`
 
     background-color: transparent;
     color: ${({theme}) => theme.COLORS.LIGHT_400};
+  }
+
+  select, textarea {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    transition: transform 1s ease;
+
+    background-color: transparent;
+    ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
+    color: ${({theme}) => theme.COLORS.LIGHT_400};
+  }
+
+  select {
+    height: 48px;
+  }
+
+  div {
+    height: 48px;
+  }
+
+  textarea {
+    resize: none;
+    height: 172px;
+    padding-top: 16px;
   }
 `;

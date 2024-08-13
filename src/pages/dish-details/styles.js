@@ -5,7 +5,7 @@ export const Container = styled.main`
   > a {
     display: flex;
     align-items: center;
-    margin: 24px 0 42px;
+    margin: 40px 0 42px;
 
     grid-area: voltar;
 

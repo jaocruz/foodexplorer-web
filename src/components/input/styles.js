@@ -39,7 +39,7 @@ export const Container = styled.div`
   }
 
   input {
-    width: 254px;
+    width: 100%;
     height: 48px;
 
     border: none;

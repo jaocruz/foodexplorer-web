@@ -33,7 +33,7 @@ export function AddDish(){
 
           <Input title="Categoria">
             <select>
-              <option selected disabled>- - - Selecione a categoria - - -</option>
+              <option selected disabled>Selecione a categoria</option>
               <option value="Refeicao">Refeição</option>
               <option value="Sobremesa">Sobremesa</option>
               <option value="Bebida">Bebida</option>

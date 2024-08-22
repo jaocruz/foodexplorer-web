@@ -1,11 +1,40 @@
-import { Container, Brand, Form } from "./styles";
+import { useState } from "react";
+import { api } from "../../services/api";
 
 import { PiHexagonFill } from "react-icons/pi";
+
+import { Container, Brand, Form } from "./styles";
 
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 
 export function SignUp(){
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSignUp(){
+    if(!name || !email || !password) {
+      return alert("Preencha todos os campos!")
+    }
+
+    api.post("/users", {name, email, password})
+
+    .then(() => {
+      alert("Usuário cadastrado com sucesso.")
+    })
+
+    .catch(error => {
+      if(error.response){
+        alert(error.repsonse.data.message);
+      }
+
+      else{
+        alert("Cadastro não realizado, tente novamente.")
+      }
+    })
+  }
+
   return (
     <Container>
       <Brand>
@@ -16,11 +45,28 @@ export function SignUp(){
       <Form>
         <h1>Crie sua conta</h1>
 
-        <Input title="Seu nome" placeholder="Exemplo: Maria da Silva"/>
-        <Input title="Email" placeholder="Exemplo: exemplo@exemplo.com.br"/>
-        <Input title="Senha" placeholder="No mínimo 6 caracteres"/>
+        <Input 
+          title="Seu nome"
+          type="text"
+          placeholder="Exemplo: Maria da Silva"
+          onChange={e => setName(e.target.value)}
+        />
 
-        <Button title="Criar conta"/>
+        <Input 
+          title="Email"
+          type="email"
+          placeholder="Exemplo: exemplo@exemplo.com.br"
+          onChange={e => setEmail(e.target.value)}
+        />
+
+        <Input
+          title="Senha"
+          type="password"
+          placeholder="No mínimo 6 caracteres"
+          onChange={e => setPassword(e.target.value)}
+        />
+
+        <Button title="Criar conta" onClick={handleSignUp} />
 
         <a href="#">Já tenho uma conta</a>
       </Form>

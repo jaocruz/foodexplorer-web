@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { Container, Form } from "./styles";
 
@@ -11,6 +12,15 @@ import { IngredientButton } from "../../components/ingredient-button";
 import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
 
 export function AddDish(){
+
+  const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState("");
+
+  function handleAddTag(){
+    setTags(prevState => [...prevState, newTag]);
+    setNewTag("");
+  }
+
   const navigate = useNavigate();
 
   function handleBack(){
@@ -51,10 +61,27 @@ export function AddDish(){
 
         <div className="second-row">
           <Input title="Ingredients">
+
             <div className="ingredients">
-              <IngredientButton value="Pão Naan"/>
-              <IngredientButton isNew placeholder="Adicionar"/>
+              {
+                tags.map((tag, index) => (
+                  <IngredientButton
+                    key={String(index)}
+                    value={tag}
+                    onClick={() => {}}
+                  />
+                ))
+              }
+
+              <IngredientButton
+                isNew
+                placeholder="Adicionar"
+                value={newTag}
+                onChange={e => setNewTag(e.target.value)}
+                onClick={handleAddTag}
+              />
             </div>
+
           </Input>
 
 

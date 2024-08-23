@@ -1,6 +1,6 @@
-import { Container, Form } from "./styles";
+import { Link, useNavigate } from "react-router-dom";
 
-import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
+import { Container, Form } from "./styles";
 
 import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
@@ -8,13 +8,21 @@ import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { IngredientButton } from "../../components/ingredient-button";
 
+import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
+
 export function EditDish(){
+  const navigate = useNavigate();
+
+  function handleBack(){
+    navigate(-1)
+  }
+
   return (
     <>
     <Header/>
 
     <Container>
-      <a href=""><PiCaretLeft/>voltar</a>
+      <a onClick={handleBack}><PiCaretLeft/>voltar</a>
 
       <h1>Adicionar prato</h1>
 

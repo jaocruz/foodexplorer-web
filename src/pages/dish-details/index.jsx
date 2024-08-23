@@ -1,6 +1,6 @@
-import { Container } from "./styles";
+import { useNavigate } from "react-router-dom";
 
-import { PiCaretLeft } from "react-icons/pi";
+import { Container } from "./styles";
 
 import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
@@ -8,13 +8,21 @@ import { Button } from "../../components/button"
 import { Stepper } from "../../components/stepper"
 import { IngredientTag } from "../../components/ingredient-tag"
 
+import { PiCaretLeft } from "react-icons/pi";
+
 export function DishDetails(){
+  const navigate = useNavigate();
+
+  function handleBack(){
+    navigate(-1)
+  }
+
   return (
     <>
     <Header />
 
     <Container>
-      <a href=""><PiCaretLeft/>voltar</a>
+      <a onClick={handleBack}><PiCaretLeft/>voltar</a>
 
       <div className="dish">
         <img src="Mask group.png" alt="" />

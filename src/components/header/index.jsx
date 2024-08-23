@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Container, Brand } from "./styles";
 
 import { Button } from "../button";
@@ -9,20 +11,24 @@ export function Header(){
   return (
     <Container>
       <main>
-        <Brand>
-          <div className="main-brand">
-            <PiHexagonFill size={32}/>
-            <h1>food explorer</h1>
-          </div>
+        <Link to="/">
+          <Brand>
+            <div className="main-brand">
+              <PiHexagonFill size={32}/>
+              <h1>food explorer</h1>
+            </div>
 
-          <span>admin</span>
-        </Brand>
+            <span>admin</span>
+          </Brand>
+        </Link>
 
         <Input icon={PiMagnifyingGlass} placeholder="Busque por pratos ou ingredientes"/>
+        
+        <Link to="new">
+          <Button title="Novo prato"/>
+        </Link>
 
-        <Button title="Novo prato"/>
-
-        <a href="#"><PiSignOut size={32}/></a>
+        <Link to="/"><PiSignOut size={32}/></Link>
       </main>
     </Container>
   )

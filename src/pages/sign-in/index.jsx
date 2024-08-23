@@ -1,9 +1,11 @@
-import { Container, Brand, Form } from "./styles";
+import { Link } from "react-router-dom";
 
-import { PiHexagonFill } from "react-icons/pi";
+import { Container, Brand, Form } from "./styles";
 
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
+
+import { PiHexagonFill } from "react-icons/pi";
 
 export function SignIn(){
   return (
@@ -21,7 +23,7 @@ export function SignIn(){
 
         <Button title="Entrar"/>
 
-        <a href="#">Criar uma conta</a>
+        <Link to="/register">Criar uma conta</Link>
       </Form>
     </Container>
   )

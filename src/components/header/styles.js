@@ -32,7 +32,11 @@ export const Container = styled.header`
       }
     }
 
-    > button {
+    input {
+      width: 246px;
+    }
+
+    button {
       width: 216px;
     }
   }

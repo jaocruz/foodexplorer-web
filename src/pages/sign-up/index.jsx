@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { api } from "../../services/api";
-
-import { PiHexagonFill } from "react-icons/pi";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Container, Brand, Form } from "./styles";
 
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 
+import { PiHexagonFill } from "react-icons/pi";
+
 export function SignUp(){
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function handleSignUp(){
     if(!name || !email || !password) {
@@ -22,6 +25,7 @@ export function SignUp(){
 
     .then(() => {
       alert("Usuário cadastrado com sucesso.")
+      navigate("/");
     })
 
     .catch(error => {
@@ -68,7 +72,7 @@ export function SignUp(){
 
         <Button title="Criar conta" onClick={handleSignUp} />
 
-        <a href="#">Já tenho uma conta</a>
+        <Link to="/">Já tenho uma conta</Link>
       </Form>
     </Container>
   )

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
 import { Container, Brand } from "./styles";
 
@@ -8,6 +9,12 @@ import { Input } from "../input";
 import { PiSignOut, PiHexagonFill, PiMagnifyingGlass  } from "react-icons/pi";
 
 export function Header(){
+  const { signOut } = useAuth();
+
+  function handleSignOut() {
+    signOut();
+  }
+
   return (
     <Container>
       <main>
@@ -28,7 +35,7 @@ export function Header(){
           <Button title="Novo prato"/>
         </Link>
 
-        <Link to="/"><PiSignOut size={32}/></Link>
+        <a onClick={handleSignOut}><PiSignOut size={32}/></a>
       </main>
     </Container>
   )

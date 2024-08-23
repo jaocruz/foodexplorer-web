@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { api } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
+
+import { api } from "../../services/api";
 
 import { Container, Brand, Form } from "./styles";
 

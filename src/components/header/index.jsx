@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/user-roles";
 
@@ -10,9 +11,13 @@ import { Input } from "../input";
 import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt  } from "react-icons/pi";
 
 export function Header(){
+
+  const navigate = useNavigate();
+
   const { signOut, user } = useAuth();
 
   function handleSignOut() {
+    navigate("/")
     signOut();
   }
 

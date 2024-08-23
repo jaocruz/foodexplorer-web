@@ -25,7 +25,7 @@ export function Home(){
         <h1>Refeições</h1>
 
         <section>
-          <div className="gradients">
+          {/* <div className="gradients">
             <div className="left-gradient">
               <a href="#"><PiCaretLeft/></a>
             </div>
@@ -33,13 +33,13 @@ export function Home(){
             <div className="right-gradient">
               <a href="#"><PiCaretRight/></a>
             </div>
-          </div>
+          </div> */}
 
           <DishCard/>
         </section>
       </Carousel>
 
-      <Carousel>
+      {/* <Carousel>
         <h1>Sobremesas</h1>
 
         <section>
@@ -73,7 +73,7 @@ export function Home(){
 
           <DishCard/>
         </section>
-      </Carousel>
+      </Carousel> */}
     </Container>
 
     <Footer/>

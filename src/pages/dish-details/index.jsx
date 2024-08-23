@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/user-roles";
 
 import { Container } from "./styles";
 
@@ -11,6 +14,7 @@ import { IngredientTag } from "../../components/ingredient-tag"
 import { PiCaretLeft } from "react-icons/pi";
 
 export function DishDetails(){
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   function handleBack(){
@@ -25,7 +29,7 @@ export function DishDetails(){
       <a onClick={handleBack}><PiCaretLeft/>voltar</a>
 
       <div className="dish">
-        <img src="Mask group.png" alt="" />
+        <img src="/salada-ravanello.png" alt="" />
 
         <div className="dish-details">
           <h1>Salada Ravanello</h1>
@@ -40,10 +44,20 @@ export function DishDetails(){
             <IngredientTag title="tomate"/>
           </div>
 
-          <section>
-            <Stepper />
-            <Button title="incluir ∙ R$ 25,00"/>
-          </section>
+          {[USER_ROLE.CUSTOMER].includes(user.role) &&
+            <section>
+              <Stepper />
+              <Button title="incluir ∙ R$ 25,00"/>
+            </section>
+          }
+
+          {[USER_ROLE.ADMIN].includes(user.role) &&
+            <section>
+              <Link to="/edit/:id">
+              <Button title="Editar prato"/>
+              </Link>
+            </section>
+          }
 
         </div>
       </div>

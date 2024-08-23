@@ -8,44 +8,54 @@ export const Container = styled.div`
   padding: 24px;
   border-radius: 8px;
 
-  gap: 15px;
-
-  display: flex;
-  flex-direction: column;
-
   flex-shrink: 0;
   position: relative;
-  align-items: center;
 
   background-color: ${({theme}) => theme.COLORS.DARK_200};
   border: 1px solid ${({theme}) => theme.COLORS.DARK_300};
 
   > a {
     position: absolute;
-    top: 16px;
+    top: 12px;
     left: 262px;
     color: ${({theme}) => theme.COLORS.LIGHT_300};
   }
 
-  img {
-    width: 176px;
-    height: 176px;
-  }
+  > .main-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-  h2 {
-    ${({theme}) => theme.FONTS.POPPINS_300bold};
-    color: ${({theme}) => theme.COLORS.LIGHT_300};
-  }
+    a {
+      display: flex;
+      flex-direction: column;
 
-  p {
-    text-align: center;
-    color: ${({theme}) => theme.COLORS.LIGHT_400};
-    ${({theme}) => theme.FONTS.ROBOTO_SMALLERregular};
-  }
+      gap: 15px;
+      
+      align-items: center;
+      justify-content: center;
+    }
+    
+    img {
+      width: 176px;
+      height: 176px;
+    }
 
-  h3 {
-    color: ${({theme}) => theme.COLORS.CAKE_200};
-    ${({theme}) => theme.FONTS.ROBOTO_BIGGESTregular};
+    h2 {
+      ${({theme}) => theme.FONTS.POPPINS_300bold};
+      color: ${({theme}) => theme.COLORS.LIGHT_300};
+    }
+
+    p {
+      text-align: center;
+      color: ${({theme}) => theme.COLORS.LIGHT_400};
+      ${({theme}) => theme.FONTS.ROBOTO_SMALLERregular};
+    }
+
+    h3 {
+      color: ${({theme}) => theme.COLORS.CAKE_200};
+      ${({theme}) => theme.FONTS.ROBOTO_BIGGESTregular};
+    }
   }
 
   section {

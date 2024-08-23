@@ -21,6 +21,10 @@ export function AddDish(){
     setNewTag("");
   }
 
+  function handleRemoveTag(deleted){
+    setTags(prevState => prevState.filter(tag => tag !== deleted))
+  }
+
   const navigate = useNavigate();
 
   function handleBack(){
@@ -68,7 +72,7 @@ export function AddDish(){
                   <IngredientButton
                     key={String(index)}
                     value={tag}
-                    onClick={() => {}}
+                    onClick={() => handleRemoveTag(tag)}
                   />
                 ))
               }

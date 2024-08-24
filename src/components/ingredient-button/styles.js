@@ -21,7 +21,11 @@ export const Container = styled.article`
   }
 
   > input {
-    width: 74px;
+    width: ${({isNew}) => isNew ? '66px' : '20px'};
+  }
+
+  > button {
+    margin-left: 4px;
   }
   
   svg {

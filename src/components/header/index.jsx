@@ -38,7 +38,7 @@ export function Header(){
         <Input icon={PiMagnifyingGlass} placeholder="Busque por pratos ou ingredientes"/>
 
         {[USER_ROLE.ADMIN].includes(user.role) &&
-          <Link to="new">
+          <Link to="/new">
             <Button title="Novo prato"/>
           </Link>
         }

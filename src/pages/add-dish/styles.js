@@ -92,19 +92,19 @@ export const Form = styled.form`
 
     .ingredients {
       display: flex;
+      flex-wrap: wrap;
+      
+      max-width: 836px;
+      height: fit-content;
 
       gap: 16px;
-      padding: 4px 0;
+      padding: 8px 0;
       align-items: center;
-
-      input {
-        width: 75px;
-      }
-    }
   }
 
   > .fourth-row {
-    display: flex;
-    justify-content: flex-end;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 `;

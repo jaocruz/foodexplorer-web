@@ -13,12 +13,18 @@ export function Home(){
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function loadDishs(){
-      const response = await api.get("/dishs")
-      setData(response.data);
+    async function loadDishs() {
+      try {
+        const response = await api.get("/dishs");
+        setData(response.data);
+      }
+      
+      catch (error) {
+        console.error("Failed to fetch dishes:", error);
+      }
     }
-
-    loadDishs()
+  
+    loadDishs();
   }, []);
 
   const filteredDishes = (category) => data.filter(dish => dish.category === category);

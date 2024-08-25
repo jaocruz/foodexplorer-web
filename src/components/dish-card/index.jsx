@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/user-roles";
 
@@ -10,8 +8,13 @@ import { PiHeartStraight, PiPencilSimpleLight  } from "react-icons/pi";
 import { Button } from "../button";
 import { Stepper } from "../stepper";
 
+import dishPlaceholder from "/placeholder.png";
+import { api } from "../../services/api.js";
+
 export function DishCard({data}){
   const { user } = useAuth();
+
+  const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
   return (
     <Container>
@@ -20,7 +23,7 @@ export function DishCard({data}){
       {[USER_ROLE.CUSTOMER].includes(user.role) && <PiHeartStraight size={24}/>}
 
       <section className="main-info">
-        <img src="" alt="" />
+        <img src={dishURL} alt={data.name} />
 
         <h2>{data.name} {">"}</h2>
 

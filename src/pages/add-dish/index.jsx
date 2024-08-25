@@ -30,27 +30,33 @@ export function AddDish(){
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [photo, setPhoto] = useState(null);
 
-  async function handleNewDish(){
-    try {
-      const response = await api.post("/dishs", {
-        name,
-        category,
-        price,
-        description,
-        ingredients,
-      });
+  async function handleNewDish() {
+  try {
+    const formData = new FormData();
 
-      if(response.status === 200) {
-        alert("Prato cadastrado com sucesso.");
+    formData.append("name", name);
+    formData.append("category", category);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("ingredients", JSON.stringify(ingredients));
+    if (photo) formData.append("photo", photo);
+
+    const response = await api.post("/dishs", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
       }
+    });
+
+    if (response.status === 200) {
+      alert("Prato cadastrado com sucesso.");
     }
-    
-    catch (error) {
-      console.error('Error adding dish:', error);
-      alert("Ocorreu um erro ao cadastrar o prato.");
-    }
+  } catch (error) {
+    console.error('Error adding dish:', error.response?.data || error.message);
+    alert("Ocorreu um erro ao cadastrar o prato.");
   }
+}
 
   const navigate = useNavigate();
 
@@ -70,7 +76,10 @@ export function AddDish(){
       <Form>
         <div className="first-row">
           <Input title="Imagem do prato">
-            <input type="file"/>
+            <input
+              type="file"
+              onChange={e => setPhoto(e.target.files[0])}
+            />
 
             <div className="photo-upload">
               <PiUploadSimple/>
@@ -86,7 +95,7 @@ export function AddDish(){
 
           <Input title="Categoria">
             <select onChange={e => setCategory(e.target.value)} value={category}>
-              <option value="" disabled selected hidden>Escolha uma opção</option>
+              <option value="" disabled hidden>Escolha uma opção</option>
               <option value="Refeicao">Refeição</option>
               <option value="Sobremesa">Sobremesa</option>
               <option value="Bebida">Bebida</option>

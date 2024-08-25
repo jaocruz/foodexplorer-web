@@ -21,7 +21,7 @@ export function DishCard(){
 
       <section className="main-info">
         <Link to="/details/:id">
-          <img src="/public/Mask group-1.png" alt="" />
+          <img src="Mask group-1.png" alt="" />
 
           <h2>Torradas de Parma</h2>
 

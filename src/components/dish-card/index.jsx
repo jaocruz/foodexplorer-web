@@ -10,7 +10,7 @@ import { PiHeartStraight, PiPencilSimpleLight  } from "react-icons/pi";
 import { Button } from "../button";
 import { Stepper } from "../stepper";
 
-export function DishCard(){
+export function DishCard({data}){
   const { user } = useAuth();
 
   return (
@@ -20,17 +20,13 @@ export function DishCard(){
       {[USER_ROLE.CUSTOMER].includes(user.role) && <a href="#"><PiHeartStraight size={24}/></a>}
 
       <section className="main-info">
-        <Link to="/details/:id">
-          <img src="Mask group-1.png" alt="" />
+        <img src="" alt="" />
 
-          <h2>Torradas de Parma</h2>
+        <h2>{data.name} ></h2>
 
-          <p>
-            Presunto de parma e rúcula em um pão com fermentação natural.
-          </p>
+        <p>{data.description}</p>
 
-          <h3>R$ 25,97</h3>
-        </Link>
+        <h3>R$ {data.price}</h3>
 
         {[USER_ROLE.CUSTOMER].includes(user.role) &&
           <section>

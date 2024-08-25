@@ -6,7 +6,22 @@ import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
 import { DishCard } from "../../components/dish-card"
 
+import { useState, useEffect } from "react";
+import { api } from "../../services/api";
+
 export function Home(){
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function loadDishs(){
+      const response = await api.get("/dishs")
+      setData(response.data);
+    }
+
+    loadDishs()
+  }, []);
+
   return (
     <>
     <Header/>
@@ -21,11 +36,11 @@ export function Home(){
         </div>
       </Banner>
 
-      {/* <Carousel>
+      <Carousel>
         <h1>Refeições</h1>
 
         <section>
-          <div className="gradients">
+          {/* <div className="gradients">
             <div className="left-gradient">
               <a href="#"><PiCaretLeft/></a>
             </div>
@@ -33,11 +48,19 @@ export function Home(){
             <div className="right-gradient">
               <a href="#"><PiCaretRight/></a>
             </div>
-          </div>
+          </div> */}
 
-          <DishCard/>
+          {
+            data.map(dish => (
+              <DishCard
+                key={dish.id}
+                data={dish}
+              />
+            ))
+          }
+
         </section>
-      </Carousel> */}
+      </Carousel>
     </Container>
 
     <Footer/>

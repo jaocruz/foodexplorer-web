@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 462px;
-  width: fit-content;
-  max-width: 304px;
+  width: 304px;
 
   padding: 24px;
   border-radius: 8px;
@@ -48,6 +47,15 @@ export const Container = styled.div`
     }
 
     p {
+      width: 256px;
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+
       text-align: center;
       color: ${({theme}) => theme.COLORS.LIGHT_400};
       ${({theme}) => theme.FONTS.ROBOTO_SMALLERregular};

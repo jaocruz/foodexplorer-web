@@ -36,7 +36,7 @@ export function DishDetails(){
     }
 
     fetchDishs()
-  }, [])
+  }, []);
 
   return (
     <>

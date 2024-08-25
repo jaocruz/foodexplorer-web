@@ -1,4 +1,4 @@
-import { Container, Banner, Carousel } from "./styles";
+import { Container, Banner, Carousel, Gradient } from "./styles";
 
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 
@@ -6,11 +6,10 @@ import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
 import { DishCard } from "../../components/dish-card"
 
-import { useState, useEffect } from "react";
 import { api } from "../../services/api";
+import { useState, useEffect } from "react";
 
 export function Home(){
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export function Home(){
           <h1>Refeições</h1>
 
           <section>
-            <div className="gradients">
+            {/* <Gradient>
               <div className="left-gradient">
                 <a href="#"><PiCaretLeft/></a>
               </div>
@@ -52,7 +51,7 @@ export function Home(){
               <div className="right-gradient">
                 <a href="#"><PiCaretRight/></a>
               </div>
-            </div>
+            </Gradient> */}
 
             {
               data.filter(dish => dish.category === "Refeicao").map(dish => (
@@ -72,7 +71,7 @@ export function Home(){
           <h1>Sobremesas</h1>
 
           <section>
-            <div className="gradients">
+            {/* <Gradient>
               <div className="left-gradient">
                 <a href="#"><PiCaretLeft/></a>
               </div>
@@ -80,7 +79,7 @@ export function Home(){
               <div className="right-gradient">
                 <a href="#"><PiCaretRight/></a>
               </div>
-            </div>
+            </Gradient> */}
 
             {
               data.filter(dish => dish.category === "Sobremesa").map(dish => (
@@ -100,7 +99,7 @@ export function Home(){
           <h1>Bebidas</h1>
 
           <section>
-            <div className="gradients">
+            {/* <Gradient>
               <div className="left-gradient">
                 <a href="#"><PiCaretLeft/></a>
               </div>
@@ -108,7 +107,7 @@ export function Home(){
               <div className="right-gradient">
                 <a href="#"><PiCaretRight/></a>
               </div>
-            </div>
+            </Gradient> */}
 
             {
               data.filter(dish => dish.category === "Bebida").map(dish => (

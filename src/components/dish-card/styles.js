@@ -13,10 +13,13 @@ export const Container = styled.div`
   background-color: ${({theme}) => theme.COLORS.DARK_200};
   border: 1px solid ${({theme}) => theme.COLORS.DARK_300};
 
-  > a {
+  > svg {
     position: absolute;
+    cursor: pointer;
+
     top: 12px;
     left: 262px;
+
     color: ${({theme}) => theme.COLORS.LIGHT_300};
   }
 

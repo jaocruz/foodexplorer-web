@@ -57,46 +57,46 @@ export const Carousel = styled.section`
     gap: 28px;
     max-width: 1120px;
     position: relative;
+  }
+`;
 
-    .gradients {
-      width: 100%;
-      max-width: 1120px;
+export const Gradient = styled.div`
+  width: 100%;
+  max-width: 1120px;
 
-      height: 464px;
+  height: 464px;
 
-      pointer-events: none;
+  pointer-events: none;
 
-      display: flex;
-      position: absolute;
-      justify-content: space-between;
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+
+  .left-gradient, .right-gradient {
+    width: 276px;
+    height: 462px;
+
+    z-index: 1;
+
+    display: flex;
+
+    svg {
+      width: 40px;
+      height: 40px;
+      margin: 184px 18px 0;
+
+      pointer-events: all;
+      color: ${({theme}) => theme.COLORS.LIGHT_100};
     }
+  }
 
-    .left-gradient, .right-gradient {
-      width: 276px;
-      height: 462px;
+  .left-gradient {
+    justify-content: flex-start;
+    background: ${({theme}) => theme.COLORS.GRADIENT_100l};
+  }
 
-      z-index: 1;
-
-      display: flex;
-
-      svg {
-        width: 40px;
-        height: 40px;
-        margin: 184px 18px 0;
-
-        pointer-events: all;
-        color: ${({theme}) => theme.COLORS.LIGHT_100};
-      }
-    }
-
-    .left-gradient {
-      justify-content: flex-start;
-      background: ${({theme}) => theme.COLORS.GRADIENT_100l};
-    }
-
-    .right-gradient {
-      justify-content: flex-end;
-      background: ${({theme}) => theme.COLORS.GRADIENT_100r};
-    }
+  .right-gradient {
+    justify-content: flex-end;
+    background: ${({theme}) => theme.COLORS.GRADIENT_100r};
   }
 `;

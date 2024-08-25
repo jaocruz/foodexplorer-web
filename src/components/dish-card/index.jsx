@@ -16,13 +16,13 @@ export function DishCard({data}){
   return (
     <Container>
 
-      {[USER_ROLE.ADMIN].includes(user.role) && <Link to="/edit/:id"><PiPencilSimpleLight  size={28}/></Link>}
-      {[USER_ROLE.CUSTOMER].includes(user.role) && <a href="#"><PiHeartStraight size={24}/></a>}
+      {[USER_ROLE.ADMIN].includes(user.role) && <PiPencilSimpleLight size={28}/>}
+      {[USER_ROLE.CUSTOMER].includes(user.role) && <PiHeartStraight size={24}/>}
 
       <section className="main-info">
         <img src="" alt="" />
 
-        <h2>{data.name} ></h2>
+        <h2>{data.name} {">"}</h2>
 
         <p>{data.description}</p>
 

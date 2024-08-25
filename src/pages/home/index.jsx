@@ -22,6 +22,8 @@ export function Home(){
     loadDishs()
   }, []);
 
+  const filteredDishes = (category) => data.filter(dish => dish.category === category);
+
   return (
     <>
     <Header/>
@@ -36,31 +38,89 @@ export function Home(){
         </div>
       </Banner>
 
-      <Carousel>
-        <h1>Refeições</h1>
+      {
+       filteredDishes("Refeicao").length > 0 && (
+        <Carousel>
+          <h1>Refeições</h1>
 
-        <section>
-          {/* <div className="gradients">
-            <div className="left-gradient">
-              <a href="#"><PiCaretLeft/></a>
+          <section>
+            <div className="gradients">
+              <div className="left-gradient">
+                <a href="#"><PiCaretLeft/></a>
+              </div>
+
+              <div className="right-gradient">
+                <a href="#"><PiCaretRight/></a>
+              </div>
             </div>
 
-            <div className="right-gradient">
-              <a href="#"><PiCaretRight/></a>
+            {
+              data.filter(dish => dish.category === "Refeicao").map(dish => (
+                <DishCard
+                  key={dish.id}
+                  data={dish}
+                />
+              ))
+            }
+          </section>
+        </Carousel>
+      )}
+
+      {
+        filteredDishes("Sobremesa").length > 0 && (
+        <Carousel>
+          <h1>Sobremesas</h1>
+
+          <section>
+            <div className="gradients">
+              <div className="left-gradient">
+                <a href="#"><PiCaretLeft/></a>
+              </div>
+
+              <div className="right-gradient">
+                <a href="#"><PiCaretRight/></a>
+              </div>
             </div>
-          </div> */}
 
-          {
-            data.map(dish => (
-              <DishCard
-                key={dish.id}
-                data={dish}
-              />
-            ))
-          }
+            {
+              data.filter(dish => dish.category === "Sobremesa").map(dish => (
+                <DishCard
+                  key={dish.id}
+                  data={dish}
+                />
+              ))
+            }
+          </section>
+        </Carousel>
+      )}
 
-        </section>
-      </Carousel>
+      {
+        filteredDishes("Bebida").length > 0 && (
+        <Carousel>
+          <h1>Bebidas</h1>
+
+          <section>
+            <div className="gradients">
+              <div className="left-gradient">
+                <a href="#"><PiCaretLeft/></a>
+              </div>
+
+              <div className="right-gradient">
+                <a href="#"><PiCaretRight/></a>
+              </div>
+            </div>
+
+            {
+              data.filter(dish => dish.category === "Bebida").map(dish => (
+                <DishCard
+                  key={dish.id}
+                  data={dish}
+                />
+              ))
+            }
+          </section>
+        </Carousel>
+      )}
     </Container>
 
     <Footer/>

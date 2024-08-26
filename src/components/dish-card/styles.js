@@ -42,9 +42,11 @@ export const Container = styled.div`
     img {
       width: 176px;
       height: 176px;
+      cursor: pointer;
     }
 
     h2 {
+      cursor: pointer;
       ${({theme}) => theme.FONTS.POPPINS_300bold};
       color: ${({theme}) => theme.COLORS.LIGHT_300};
     }

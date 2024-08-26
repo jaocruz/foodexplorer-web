@@ -17,6 +17,8 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import dishPlaceholder from "/placeholder.png";
+
 export function DishDetails(){
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -38,6 +40,8 @@ export function DishDetails(){
     fetchDishs()
   }, []);
 
+  const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
+
   return (
     <>
     <Header />
@@ -49,7 +53,7 @@ export function DishDetails(){
         data &&
 
         <div className="dish">
-        <img src="/salada-ravanello.png" alt="" />
+        <img src={dishURL} alt={data.name} />
 
         <div className="dish-details">
           <h1>{data.name}</h1>

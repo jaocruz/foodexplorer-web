@@ -9,23 +9,36 @@ import { Button } from "../button";
 import { Stepper } from "../stepper";
 
 import dishPlaceholder from "/placeholder.png";
+
 import { api } from "../../services/api.js";
+
+import { useNavigate } from "react-router-dom";
 
 export function DishCard({data}){
   const { user } = useAuth();
 
   const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
+  const navigate = useNavigate();
+
+  function handleDetails(){
+    navigate(`/details/${data.id}`)
+  }
+
+  function handleEdit(){
+    navigate(`/edit/${data.id}`)
+  }
+
   return (
     <Container>
 
-      {[USER_ROLE.ADMIN].includes(user.role) && <PiPencilSimpleLight size={28}/>}
+      {[USER_ROLE.ADMIN].includes(user.role) && <PiPencilSimpleLight size={28} onClick={handleEdit}/>}
       {[USER_ROLE.CUSTOMER].includes(user.role) && <PiHeartStraight size={24}/>}
 
       <section className="main-info">
-        <img src={dishURL} alt={data.name} />
+        <img src={dishURL} alt={data.name} onClick={handleDetails}/>
 
-        <h2>{data.name} {">"}</h2>
+        <h2 onClick={handleDetails}>{data.name} {">"}</h2>
 
         <p>{data.description}</p>
 

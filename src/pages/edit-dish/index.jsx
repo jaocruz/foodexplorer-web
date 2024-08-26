@@ -1,5 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
-
 import { Container, Form } from "./styles";
 
 import { Header } from "../../components/header"
@@ -10,10 +8,10 @@ import { IngredientButton } from "../../components/ingredient-button";
 
 import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
 
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
 import { api } from "../../services/api";
+
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 export function EditDish(){
   const [data, setData] = useState([]);
@@ -89,6 +87,17 @@ export function EditDish(){
     } catch (error) {
       console.error('Error updating dish:', error.response?.data || error.message);
       alert("Ocorreu um erro ao atualizar o prato.");
+    }
+  }
+
+  async function handleDeleteDish() {
+    const confirmDelete = window.confirm("Você realmente deseja excluir esse prato?")
+
+    if(confirmDelete){
+      await api.delete(`/dishs/${params.id}`);
+
+      alert("Prato excluido com sucesso");
+      navigate("/");
     }
   }
 
@@ -175,7 +184,7 @@ export function EditDish(){
         </div>
 
         <div className="fourth-row">
-          <Button title="Excluir prato"/>
+          <Button onClick={handleDeleteDish} title="Excluir prato"/>
           <Button onClick={handleEditDish} title="Salvar alterações"/>
         </div>
       </Form>

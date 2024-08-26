@@ -7,6 +7,8 @@ export const Container = styled.main`
     align-items: center;
     margin: 40px 0 24px;
 
+    width: fit-content;
+
     grid-area: voltar;
 
     ${({theme}) => theme.FONTS.POPPINS_300bold};
@@ -88,23 +90,43 @@ export const Form = styled.form`
     display: grid;
     column-gap: 32px;
 
-    grid-template-columns: 1fr 252px;
+    grid-template-columns: 836px 252px;
 
     .ingredients {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       
-      max-width: 836px;
+      max-width: 830px;
       height: fit-content;
 
       gap: 16px;
       padding: 8px 0;
       align-items: center;
+
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: ${({theme}) => theme.COLORS.DARK_1000};
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    }
   }
 
   > .fourth-row {
-      display: flex;
-      justify-content: flex-end;
-    }
+    display: flex;
+    justify-content: flex-end;
   }
 `;

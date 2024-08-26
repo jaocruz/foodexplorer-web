@@ -50,7 +50,10 @@ export function AddDish(){
     });
 
     if (response.status === 200) {
+      const dishId = response.data.id;
+
       alert("Prato cadastrado com sucesso.");
+      navigate(`/details/${dishId}`)
     }
   } catch (error) {
     console.error('Error adding dish:', error.response?.data || error.message);

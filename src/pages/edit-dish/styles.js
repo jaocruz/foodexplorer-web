@@ -88,17 +88,37 @@ export const Form = styled.form`
     display: grid;
     column-gap: 32px;
 
-    grid-template-columns: 1fr 252px;
+    grid-template-columns: 836px 252px;
 
     .ingredients {
       display: flex;
+      flex-wrap: nowrap;
+      
+      max-width: 830px;
+      height: fit-content;
 
       gap: 16px;
-      padding: 4px 0;
+      padding: 8px 0;
       align-items: center;
 
-      input {
-        width: 75px;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: ${({theme}) => theme.COLORS.DARK_1000};
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
       }
     }
   }

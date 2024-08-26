@@ -10,11 +10,86 @@ import { IngredientButton } from "../../components/ingredient-button";
 
 import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
 
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { api } from "../../services/api";
+
 export function EditDish(){
+  const [data, setData] = useState([]);
+  
+  const params = useParams();
+
   const navigate = useNavigate();
 
   function handleBack(){
     navigate(-1)
+  }
+
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
+
+  useEffect(() => {
+    api.get("/dishs")
+    .then(response => {
+      const ingredientsList = response.data[0]?.ingredients || [];
+      const ingredientNames = ingredientsList.map(ingredient => ingredient.name)
+      setIngredients(ingredientNames);
+    })
+    .catch(error => console.log("Erro ao buscar ingredientes: ", error))
+  }, [])
+
+  function handleAddIngredient(){
+    setIngredients(prevState => [...prevState, newIngredient]);
+    setNewIngredient("");
+  }
+
+  function handleRemoveIngredient(deleted){
+    setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
+  }
+
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    async function getDishInformations() {
+      const response = await api.get(`/dishs/${params.id}`)
+      setData(response.data);
+      setName(response.data.name);
+      setCategory(response.data.category);
+      setPrice(response.data.price);
+      setDescription(response.data.description);
+      setPhoto(response.data.photo);
+      setIngredients(response.data.ingredients.map(ingredient => ingredient.name));
+    }
+
+    getDishInformations();
+  }, [])
+
+  async function handleEditDish() {
+    try {
+      const formData = new FormData();
+  
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("ingredients", JSON.stringify(ingredients));
+      if (photo) formData.append("photo", photo);
+  
+      const response = await api.put(`/dishs/${params.id}`, formData);
+  
+      if (response.status === 200) {
+        alert("Prato atualizado com sucesso.");
+        navigate(`/details/${params.id}`)
+      }
+    } catch (error) {
+      console.error('Error updating dish:', error.response?.data || error.message);
+      alert("Ocorreu um erro ao atualizar o prato.");
+    }
   }
 
   return (
@@ -29,7 +104,10 @@ export function EditDish(){
       <Form>
         <div className="first-row">
           <Input title="Imagem do prato">
-            <input type="file" />
+            <input
+              type="file"
+              onChange={e => setPhoto(e.target.files[0])}
+            />
 
             <div className="photo-upload">
               <PiUploadSimple/>
@@ -37,11 +115,16 @@ export function EditDish(){
             </div>
           </Input>
           
-          <Input title="Nome" placeholder="Ex.: Salada Ceasar"/>
+          <Input
+            title="Nome"
+            placeholder="Ex.: Salada Ceasar"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
 
           <Input title="Categoria">
-            <select>
-              <option selected disabled>- - - Selecione a categoria - - -</option>
+            <select onChange={e => setCategory(e.target.value)} value={category}>
+              <option value="" disabled hidden>Escolha uma opção</option>
               <option value="Refeicao">Refeição</option>
               <option value="Sobremesa">Sobremesa</option>
               <option value="Bebida">Bebida</option>
@@ -51,25 +134,49 @@ export function EditDish(){
 
         <div className="second-row">
           <Input title="Ingredients">
+
             <div className="ingredients">
-              <IngredientButton value="Pão Naan"/>
-              <IngredientButton isNew placeholder="Adicionar"/>
+              {
+                ingredients.map((ingredient, index) => (
+                  <IngredientButton
+                    key={String(index)}
+                    value={ingredient}
+                    onClick={() => handleRemoveIngredient(ingredient)}
+                  />
+                ))
+              }
+
+              <IngredientButton
+                isNew
+                placeholder="Adicionar"
+                value={newIngredient}
+                onClick={handleAddIngredient}
+                onChange={e => setNewIngredient(e.target.value)}
+              />
             </div>
           </Input>
 
-
-          <Input title="Preço" placeholder="R$ 00,00"/>
+          <Input
+            title="Preço"
+            placeholder="R$ 00,00"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+          />
         </div>
 
         <div className="third-row">
           <Input title="Descrição">
-            <textarea placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"></textarea>
+            <textarea
+              value={description}
+              placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+              onChange={e => setDescription(e.target.value)}
+            />
           </Input>
         </div>
 
         <div className="fourth-row">
           <Button title="Excluir prato"/>
-          <Button title="Salvar alterações" disabled/>
+          <Button onClick={handleEditDish} title="Salvar alterações"/>
         </div>
       </Form>
     </Container>

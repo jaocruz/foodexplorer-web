@@ -16,13 +16,23 @@ const CarouselSection = ({ category, dishes, search }) => {
   .filter(dish => dish.category === category)
   .filter(dish => dish.name.toLowerCase().includes(search.toLowerCase()));
 
-  if(filteredDishes.length === 0) return null;
+  if(filteredDishes.lenght === 0) return null;
 
   return(
     <Carousel>
       <h1>{category}</h1>
 
       <section>
+        <Gradient>
+          <div className="left-gradient">
+            <a><PiCaretLeft/></a>
+          </div>
+
+          <div className="right-gradient">
+            <a><PiCaretRight/></a>
+          </div>
+        </Gradient>
+
         {
           filteredDishes.map(dish => (
             <DishCard

@@ -75,7 +75,7 @@ export function DishDetails(){
           {[USER_ROLE.CUSTOMER].includes(user.role) &&
             <section>
               <Stepper />
-              <Button title="incluir ∙ R$ 25,00"/>
+              <Button title={`incluir ∙ R$ ${data.price}`}/>
             </section>
           }
 

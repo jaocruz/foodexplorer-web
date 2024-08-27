@@ -10,7 +10,15 @@ import { Input } from "../input";
 
 import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt  } from "react-icons/pi";
 
-export function Header(){
+import { useState } from "react";
+
+export function Header({ onSearch }){
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    onSearch(e.target.value)
+  };
 
   const navigate = useNavigate();
 
@@ -35,7 +43,12 @@ export function Header(){
           </Brand>
         </Link>
 
-        <Input icon={PiMagnifyingGlass} placeholder="Busque por pratos ou ingredientes"/>
+        <Input
+          icon={PiMagnifyingGlass}
+          placeholder="Busque por pratos ou ingredientes"
+          value={search}
+          onChange={handleSearch}
+        />
 
         {[USER_ROLE.ADMIN].includes(user.role) &&
           <Link to="/new">

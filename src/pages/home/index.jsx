@@ -1,37 +1,67 @@
 import { Container, Banner, Carousel, Gradient } from "./styles";
 
-import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
-
 import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
 import { DishCard } from "../../components/dish-card"
 
+import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
+
 import { api } from "../../services/api";
 import { useState, useEffect } from "react";
 
+const categories = ["Refeicao", "Sobremesa", "Bebida"];
+
+const CarouselSection = ({ category, dishes, search }) => {
+  const filteredDishes = dishes
+  .filter(dish => dish.category === category)
+  .filter(dish => dish.name.toLowerCase().includes(search.toLowerCase()));
+
+  if(filteredDishes.length === 0) return null;
+
+  return(
+    <Carousel>
+      <h1>{category}</h1>
+
+      <section>
+        {
+          filteredDishes.map(dish => (
+            <DishCard
+              key={dish.id}
+              data={dish}
+            />
+          ))
+        }
+      </section>
+    </Carousel>
+  )
+}
+
 export function Home(){
-  const [data, setData] = useState([]);
+  const [dishes, setDishes] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    async function loadDishs() {
+    const loadDishes = async() => {
       try {
         const response = await api.get("/dishs");
-        setData(response.data);
+        setDishes(response.data);
       }
-      
-      catch (error) {
-        console.error("Failed to fetch dishes:", error);
+
+      catch(error) {
+        console.error("Não foi possivel carregar os pratos:", error);
       }
     }
-  
-    loadDishs();
+
+    loadDishes();
   }, []);
 
-  const filteredDishes = (category) => data.filter(dish => dish.category === category);
+  const handleSearch = (searchTerm) => {
+    setSearch(searchTerm);
+  }
 
   return (
     <>
-    <Header/>
+    <Header onSearch={handleSearch}/>
 
     <Container>
       <Banner>
@@ -44,88 +74,20 @@ export function Home(){
       </Banner>
 
       {
-       filteredDishes("Refeicao").length > 0 && (
-        <Carousel>
-          <h1>Refeições</h1>
-
-          <section>
-            {/* <Gradient>
-              <div className="left-gradient">
-                <a href="#"><PiCaretLeft/></a>
-              </div>
-
-              <div className="right-gradient">
-                <a href="#"><PiCaretRight/></a>
-              </div>
-            </Gradient> */}
-
-            {
-              data.filter(dish => dish.category === "Refeicao").map(dish => (
-                <DishCard
-                  key={dish.id}
-                  data={dish}
-                />
-              ))
-            }
-          </section>
-        </Carousel>
-      )}
+        categories.map(category => (
+          <CarouselSection
+            key={category}
+            category={category}
+            dishes={dishes}
+            search={search}
+          />
+        ))
+      }
 
       {
-        filteredDishes("Sobremesa").length > 0 && (
-        <Carousel>
-          <h1>Sobremesas</h1>
+        dishes.length === 0 && <p>Nenhum prato foi encontrado.</p>
+      }
 
-          <section>
-            {/* <Gradient>
-              <div className="left-gradient">
-                <a href="#"><PiCaretLeft/></a>
-              </div>
-
-              <div className="right-gradient">
-                <a href="#"><PiCaretRight/></a>
-              </div>
-            </Gradient> */}
-
-            {
-              data.filter(dish => dish.category === "Sobremesa").map(dish => (
-                <DishCard
-                  key={dish.id}
-                  data={dish}
-                />
-              ))
-            }
-          </section>
-        </Carousel>
-      )}
-
-      {
-        filteredDishes("Bebida").length > 0 && (
-        <Carousel>
-          <h1>Bebidas</h1>
-
-          <section>
-            {/* <Gradient>
-              <div className="left-gradient">
-                <a href="#"><PiCaretLeft/></a>
-              </div>
-
-              <div className="right-gradient">
-                <a href="#"><PiCaretRight/></a>
-              </div>
-            </Gradient> */}
-
-            {
-              data.filter(dish => dish.category === "Bebida").map(dish => (
-                <DishCard
-                  key={dish.id}
-                  data={dish}
-                />
-              ))
-            }
-          </section>
-        </Carousel>
-      )}
     </Container>
 
     <Footer/>

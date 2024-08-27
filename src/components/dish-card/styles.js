@@ -46,6 +46,7 @@ export const Container = styled.div`
     }
 
     h2 {
+      white-space: nowrap;
       cursor: pointer;
       ${({theme}) => theme.FONTS.POPPINS_300bold};
       color: ${({theme}) => theme.COLORS.LIGHT_300};

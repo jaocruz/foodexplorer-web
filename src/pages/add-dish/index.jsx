@@ -33,32 +33,39 @@ export function AddDish(){
   const [photo, setPhoto] = useState(null);
 
   async function handleNewDish() {
-  try {
-    const formData = new FormData();
-
-    formData.append("name", name);
-    formData.append("category", category);
-    formData.append("price", price);
-    formData.append("description", description);
-    formData.append("ingredients", JSON.stringify(ingredients));
-    if (photo) formData.append("photo", photo);
-
-    const response = await api.post("/dishs", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    });
-
-    if (response.status === 200) {
-      const dishId = response.data.id;
-
-      alert("Prato cadastrado com sucesso.");
-      navigate(`/details/${dishId}`)
+    if (!name || !category || !price || !description || ingredients.length === 0) {
+      alert("Todos os campos são obrigatórios.");
+      return;
     }
-  } catch (error) {
-    console.error('Error adding dish:', error.response?.data || error.message);
-    alert("Ocorreu um erro ao cadastrar o prato.");
-  }
+
+    try {
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("ingredients", JSON.stringify(ingredients));
+      if (photo) formData.append("photo", photo);
+
+      const response = await api.post("/dishs", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+
+      if (response.status === 200) {
+        const dishId = response.data.id;
+
+        alert("Prato cadastrado com sucesso.");
+        navigate(`/details/${dishId}`)
+      }
+    }
+    
+    catch (error) {
+      console.error('Error adding dish:', error.response?.data || error.message);
+      alert("Ocorreu um erro ao cadastrar o prato.");
+    }
 }
 
   const navigate = useNavigate();

@@ -52,23 +52,28 @@ export const Carousel = styled.section`
   }
 
   > section {
-    display: flex;
-
-    gap: 28px;
     max-width: 1120px;
     position: relative;
+
+  }
+
+  .carousel-container {
+    display: flex;
+    gap: 28px;
+    transition: transform 0.5s ease-in-out;
   }
 `;
 
 export const Gradient = styled.div`
   width: 100%;
-  max-width: 1120px;
-
   height: 464px;
 
   pointer-events: none;
 
-  display: flex;
+  display: grid;
+  grid-template-areas:
+  "left-gradient right-gradient";
+
   position: absolute;
   justify-content: space-between;
 
@@ -82,8 +87,7 @@ export const Gradient = styled.div`
 
     svg {
       width: 40px;
-      height: 40px;
-      margin: 184px 18px 0;
+      height: 100%;
 
       pointer-events: all;
       color: ${({theme}) => theme.COLORS.LIGHT_100};
@@ -98,5 +102,19 @@ export const Gradient = styled.div`
   .right-gradient {
     justify-content: flex-end;
     background: ${({theme}) => theme.COLORS.GRADIENT_100r};
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+
+    svg {
+      cursor: default;
+    }
+  }
+
+  .visible {
+    opacity: 1;
+    pointer-events: all;
   }
 `;

@@ -12,11 +12,27 @@ import { useState, useEffect } from "react";
 const categories = ["Refeicao", "Sobremesa", "Bebida"];
 
 const CarouselSection = ({ category, dishes, search }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const itemsPerPage = 3;
+
   const filteredDishes = dishes
   .filter(dish => dish.category === category)
   .filter(dish => dish.name.toLowerCase().includes(search.toLowerCase()));
 
-  if(filteredDishes.lenght === 0) return null;
+  if(filteredDishes.length === 0) return null;
+
+  const totalItems = filteredDishes.length;
+  const maxIndex = Math.max(0, totalItems - itemsPerPage);
+  const translateXValue = -(currentIndex * (100 / itemsPerPage));
+
+
+  const handlePrev = () => {
+    setCurrentIndex(prevIndex => Math.max(prevIndex - 1, 0));
+  }
+
+  const handleNext = () => {
+    setCurrentIndex(prevIndex => Math.min(prevIndex + 1, maxIndex));
+  }
 
   return(
     <Carousel>
@@ -24,23 +40,26 @@ const CarouselSection = ({ category, dishes, search }) => {
 
       <section>
         <Gradient>
-          <div className="left-gradient">
-            <a><PiCaretLeft/></a>
+          <div className={`left-gradient ${currentIndex > 0 ? 'visible' : 'hidden'}`}>
+            <a onClick={handlePrev}><PiCaretLeft/></a>
           </div>
-
-          <div className="right-gradient">
-            <a><PiCaretRight/></a>
+          
+          <div className={`right-gradient ${currentIndex < maxIndex ? 'visible' : 'hidden'}`}>
+            <a onClick={handleNext}><PiCaretRight/></a>
           </div>
         </Gradient>
 
-        {
-          filteredDishes.map(dish => (
-            <DishCard
-              key={dish.id}
-              data={dish}
-            />
-          ))
-        }
+        <div className="carousel-container" style={{ transform: `translateX(${translateXValue}%)`}}>
+          {
+            filteredDishes.map((dish, index) => (
+              <DishCard
+                key={dish.id}
+                data={dish}
+              />
+            ))
+          }
+        </div>
+        
       </section>
     </Carousel>
   )

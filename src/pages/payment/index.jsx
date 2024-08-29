@@ -2,8 +2,10 @@ import { Container, DishSection, PaymentModal } from "./styles";
 
 import { Header } from "../../components/header"
 import { Footer } from "../../components/footer"
+import { Input } from "../../components/input"
+import { Button } from "../../components/button"
 
-import { PiPixLogo, PiCreditCard } from "react-icons/pi";
+import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife } from "react-icons/pi";
 
 export function Payment(){
   return(
@@ -65,7 +67,46 @@ export function Payment(){
         </div>
 
         <div className="payment-info">
-          <img src="/pix-qrcode.png" alt="" />
+          <div className="checkout-payment">
+            <PiClock/>
+            <h1>Aguardando pagamento no caixa</h1>
+          </div>
+
+          {/* <img src="/pix-qrcode.png" alt="" /> */}
+
+          {/* <form>
+            <Input
+              title="Número do cartão"
+              placeholder="0000 0000 0000 0000"
+            />
+
+            <div className="second-row">
+              <Input
+                title="Validade"
+                placeholder="04/25"
+              />
+
+              <Input
+                title="CVV"
+                placeholder="000"
+              />
+            </div>
+
+            <Button
+              icon={PiReceipt}
+              title="Finalizar pagamento"
+            />
+          </form> */}
+
+          {/* <div className="aproved-payment">
+            <PiCheckCircle/>
+            <h1>Pagamento aprovado!</h1>
+          </div> */}
+
+          {/* <div className="delivered-order">
+            <PiForkKnife/>
+            <h1>Pedido entregue!</h1>
+          </div> */}
         </div>
       </PaymentModal>
     </Container>

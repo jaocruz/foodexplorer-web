@@ -8,6 +8,7 @@ export const Container = styled.main`
   "h1 h1"
   "section payment";
 
+  padding-bottom: 76px;
   color: ${({theme}) => theme.COLORS.LIGHT_300};
 
   > h1 {
@@ -170,5 +171,42 @@ export const PaymentModal = styled.div`
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
+  }
+
+  form {
+    width: 348px;
+    row-gap: 38px;
+
+    display: flex;
+    flex-direction: column;
+
+    section {
+      background-color: transparent;
+      border: solid 1px ${({theme}) => theme.COLORS.LIGHT_400};
+    }
+
+    .second-row {
+      display: flex;
+      column-gap: 16px;
+    }
+  }
+
+  .checkout-payment, .aproved-payment, .delivered-order {
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 36px;
+    align-items: center;
+
+    svg {
+      width: 128px;
+      height: 128px;
+      color: ${({theme}) => theme.COLORS.LIGHT_600};
+    }
+
+    h1 {
+      ${({theme}) => theme.FONTS.ROBOTO_BIGGERbold}
+      color: ${({theme}) => theme.COLORS.LIGHT_600};
+    }
   }
 `;

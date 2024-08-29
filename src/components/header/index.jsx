@@ -57,7 +57,7 @@ export function Header({ onSearch }){
         }
 
         {[USER_ROLE.CUSTOMER].includes(user.role) &&
-          <Link to="#">
+          <Link to="/payment">
             <Button icon={PiReceipt} title="Pedidos (0)"/>
           </Link>
         }

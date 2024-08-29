@@ -5,6 +5,8 @@ import { AddDish } from "../pages/add-dish"
 import { EditDish } from "../pages/edit-dish"
 import { DishDetails } from "../pages/dish-details"
 
+import { Payment } from "../pages/payment"
+
 export function AppRoutes(){
   return(
     <Routes>
@@ -12,6 +14,8 @@ export function AppRoutes(){
       <Route path="/new" element={<AddDish/>} />
       <Route path="/edit/:id" element={<EditDish/>} />
       <Route path="/details/:id" element={<DishDetails/>} />
+
+      <Route path="/payment" element={<Payment/>} />
     </Routes>
   )
 }

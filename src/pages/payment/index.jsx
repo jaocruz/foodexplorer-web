@@ -7,7 +7,43 @@ import { Button } from "../../components/button"
 
 import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife } from "react-icons/pi";
 
+import { useState } from "react";
+
 export function Payment(){
+  
+  const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
+  const [isCreditOpen, setIsCreditOpen] = useState(false);
+  const [isPaymentAproved, setIsPaymentAproved] = useState(false);
+
+  const [selectedPayment, setSelectedPayment] = useState(null);
+
+  function handlePix() {
+    if (isPaymentAproved) return;
+
+    if(selectedPayment === "credit") {
+      setIsCreditOpen(false)
+    };
+
+    setIsQRCodeOpen(!isQRCodeOpen);
+    setSelectedPayment(selectedPayment === "pix" ? null : "pix");
+  }
+
+  function handleCredit() {
+    if (isPaymentAproved) return;
+
+    if(selectedPayment === "pix") {
+      setIsQRCodeOpen(false)
+    };
+
+    setIsCreditOpen(!isCreditOpen);
+    setSelectedPayment(selectedPayment === "credit" ? null : "credit");
+  }
+
+  function handlePayment() {
+    setIsCreditOpen(false);
+    setIsPaymentAproved(true);
+  }
+
   return(
     <>
     <Header/>
@@ -55,53 +91,62 @@ export function Payment(){
 
       <PaymentModal>
         <div className="payment-method">
-          <div className="pix">
+          <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={handlePix}>
             <PiPixLogo/>
             <h1>PIX</h1>
           </div>
 
-          <div className="credit">
+          <div className={`credit ${selectedPayment === "credit" ? "selected" : ""}`} onClick={handleCredit}>
             <PiCreditCard/>
             <h1>Crédito</h1>
           </div>
         </div>
 
         <div className="payment-info">
-          <div className="checkout-payment">
-            <PiClock/>
-            <h1>Aguardando pagamento no caixa</h1>
-          </div>
-
-          {/* <img src="/pix-qrcode.png" alt="" /> */}
-
-          {/* <form>
-            <Input
-              title="Número do cartão"
-              placeholder="0000 0000 0000 0000"
-            />
-
-            <div className="second-row">
-              <Input
-                title="Validade"
-                placeholder="04/25"
-              />
-
-              <Input
-                title="CVV"
-                placeholder="000"
-              />
+          {!isQRCodeOpen && !isCreditOpen && !isPaymentAproved && (
+            <div className="checkout-payment">
+              <PiClock/>
+              <h1>Aguardando pagamento no caixa</h1>
             </div>
+          )}
 
-            <Button
-              icon={PiReceipt}
-              title="Finalizar pagamento"
-            />
-          </form> */}
+          {isQRCodeOpen && (
+            <img src="/pix-qrcode.png" alt="" />
+          )} 
 
-          {/* <div className="aproved-payment">
-            <PiCheckCircle/>
-            <h1>Pagamento aprovado!</h1>
-          </div> */}
+          {isCreditOpen && (
+            <form>
+              <Input
+                title="Número do cartão"
+                placeholder="0000 0000 0000 0000"
+              />
+
+              <div className="second-row">
+                <Input
+                  title="Validade"
+                  placeholder="04/25"
+                />
+
+                <Input
+                  title="CVV"
+                  placeholder="000"
+                />
+              </div>
+
+              <Button
+                icon={PiReceipt}
+                title="Finalizar pagamento"
+                onClick={handlePayment}
+              />
+            </form>
+          )}
+
+          {isPaymentAproved && (
+            <div className="aproved-payment">
+              <PiCheckCircle/>
+              <h1>Pagamento aprovado!</h1>
+            </div>
+          )}
 
           {/* <div className="delivered-order">
             <PiForkKnife/>

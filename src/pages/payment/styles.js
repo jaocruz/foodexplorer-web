@@ -8,7 +8,7 @@ export const Container = styled.main`
   "h1 h1"
   "section payment";
 
-  padding-bottom: 76px;
+  padding-bottom: 56px;
   color: ${({theme}) => theme.COLORS.LIGHT_300};
 
   > h1 {
@@ -123,6 +123,10 @@ export const PaymentModal = styled.div`
       background-color: ${({theme}) => theme.COLORS.DARK_500};
     }
 
+    .pix.selected, .credit.selected {
+      background-color: ${({theme}) => theme.COLORS.DARK_800};
+    }
+
     .pix, .credit {
       display: flex;
       cursor: pointer;
@@ -157,10 +161,6 @@ export const PaymentModal = styled.div`
       border-top: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
       border-left: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
       border-right: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
-    }
-
-    .active {
-      background-color: ${({theme}) => theme.COLORS.DARK_800};
     }
   }
 

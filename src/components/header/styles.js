@@ -17,27 +17,13 @@ export const Container = styled.header`
     display: flex;
     align-items: center;
 
-    > div {
-
-      section {
-        justify-content: center;
-
-        &:focus-within svg {
-          transform: translateX(-130px);
-        }
-
-        &:focus-within input {
-          transform: translateX(-128px);
-        }
-      }
-    }
-
     input {
       width: 246px;
     }
 
-    button {
-      width: 216px;
+    h2 {
+      white-space: nowrap;
+      ${({theme}) => theme.FONTS.ROBOTO_SMALLregular}
     }
   }
 `;

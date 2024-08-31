@@ -52,7 +52,7 @@ export function Header({ onSearch }){
 
         <a href=""><h2>Meus favoritos</h2></a>
 
-        <a href=""><h2>Histórico de pedidos</h2></a>
+        <a href="/orders"><h2>Histórico de pedidos</h2></a>
 
         {[USER_ROLE.ADMIN].includes(user.role) &&
           <Link to="/new">

@@ -50,7 +50,7 @@ export function Header({ onSearch }){
           onChange={handleSearch}
         />
 
-        <a href="/favorites"><h2>Meus favoritos</h2></a>
+        {[USER_ROLE.CUSTOMER].includes(user.role) && <a href="/favorites"><h2>Meus favoritos</h2></a> }
 
         <a href="/orders"><h2>Histórico de pedidos</h2></a>
 

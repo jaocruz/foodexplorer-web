@@ -6,6 +6,7 @@ import { EditDish } from "../pages/edit-dish"
 import { DishDetails } from "../pages/dish-details"
 
 import { Payment } from "../pages/payment"
+
 import { Orders } from "../pages/orders"
 import { Favorites } from "../pages/favorites"
 

@@ -7,6 +7,7 @@ import { DishDetails } from "../pages/dish-details"
 
 import { Payment } from "../pages/payment"
 import { Orders } from "../pages/orders"
+import { Favorites } from "../pages/favorites"
 
 export function AppRoutes(){
   return(
@@ -18,6 +19,7 @@ export function AppRoutes(){
 
       <Route path="/payment" element={<Payment/>} />
       <Route path="/orders" element={<Orders/>} />
+      <Route path="/favorites" element={<Favorites/>} />
     </Routes>
   )
 }

@@ -11,13 +11,17 @@ export const Container = styled.main`
     max-width: 1120px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-between;
 
     gap: 48px;
 
     .favorite-dishes {
       display: flex;
       align-items: center;
+
+      width: fit-content;
+      white-space: nowrap;
 
       padding: 16px 0;
       column-gap: 12px;

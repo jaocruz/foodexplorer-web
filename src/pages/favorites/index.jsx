@@ -11,7 +11,6 @@ export function Favorites(){
 
   const dishURL = `${api.defaults.baseURL}/files/`;
 
-
   async function handleDelete(id){
     await api.delete(`/favorites/${id}`)
     setFavorite(favorite.filter(favorite => favorite.id !== id));

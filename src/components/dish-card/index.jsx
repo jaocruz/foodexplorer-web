@@ -12,21 +12,44 @@ import dishPlaceholder from "/placeholder.png";
 
 import { api } from "../../services/api.js";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function DishCard({data}){
   const { user } = useAuth();
 
+  const [favoriteId, setFavoriteId] = useState(null)
   const [isFavorited, setIsFavorited] = useState(false);
 
   const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
   const navigate = useNavigate();
 
-  function handleFavorites(){
-    setIsFavorited(prev => !prev)
-  };
+  useEffect(() => {
+    async function handleFavorites() {
+      const response = await api.get("/favorites");
+      const favorites = response.data;
+
+      const favorite = favorites.find(favorite => favorite.dish_id === data.id);
+
+      setIsFavorited(!!favorite);
+      setFavoriteId(favorite ? favorite.id : null);
+    }
+
+    handleFavorites();
+  }, [data.id]);
+
+  async function addFavorite() {
+    await api.post(`/favorites`, {dish_id: data.id});
+    setIsFavorited(true);
+  }
+
+  async function removeFavorite() {
+    if(favoriteId) {
+      await api.delete(`/favorites/${favoriteId}`);
+      setIsFavorited(false);
+    }
+  }
 
   function handleDetails(){
     navigate(`/details/${data.id}`)
@@ -44,12 +67,12 @@ export function DishCard({data}){
       }
 
       {[USER_ROLE.CUSTOMER].includes(user.role) &&
-        <PiHeartStraight size={24} onClick={handleFavorites}/>
+        (isFavorited ? (
+          <PiHeartStraightFill size={24} onClick={removeFavorite}/>
+        ) : (
+          <PiHeartStraight size={24} onClick={addFavorite}/>
+        ))
       }
-
-      {isFavorited && (
-        <PiHeartStraightFill size={24} onClick={handleFavorites}/>
-      )}
 
       <section className="main-info">
         <img src={dishURL} alt={data.name} onClick={handleDetails}/>

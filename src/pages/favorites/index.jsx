@@ -11,6 +11,12 @@ export function Favorites(){
 
   const dishURL = `${api.defaults.baseURL}/files/`;
 
+
+  async function handleDelete(id){
+    await api.delete(`/favorites/${id}`)
+    setFavorite(favorite.filter(favorite => favorite.id !== id));
+  }
+
   useEffect(() => {
     async function loadFavorites() {
       try {
@@ -41,7 +47,7 @@ export function Favorites(){
 
               <div className="dish-info">
                 <h1>{favorite.name}</h1>
-                <a>Remover dos favoritos</a>
+                <a onClick={() => handleDelete(favorite.id)}>Remover dos favoritos</a>
               </div>
             </div>
           ))

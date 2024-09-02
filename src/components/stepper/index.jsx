@@ -4,15 +4,28 @@ import { PiPlus, PiMinus } from "react-icons/pi";
 
 import { useState } from "react";
 
-export function Stepper(){
+export function Stepper({onChange}){
   const [count, setCount] = useState(1);
 
   function increment(){
-    setCount(prevCount => Math.min(9, prevCount + 1));
+    setCount(prevCount => {
+      const newCount = Math.min(9, prevCount + 1);
+
+      if(onChange) onChange(newCount);
+      return newCount;
+    });
   };
 
   function decrement(){
-    setCount(prevCount => Math.max(1, prevCount - 1));
+    setCount(prevCount => {
+      const newCount = Math.max(1, prevCount - 1);
+
+      if(onChange) onChange(newCount);
+      return newCount;
+    });
+
+    if(onChange) onChange(newCount);
+    return newCount;
   }
 
   return (

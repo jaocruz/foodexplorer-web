@@ -16,10 +16,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function DishCard({data}){
-  const { user } = useAuth();
+  const { user, addToOrder } = useAuth();
 
   const [favoriteId, setFavoriteId] = useState(null)
   const [isFavorited, setIsFavorited] = useState(false);
+
+  const [quantity, setQuantity] = useState(1);
 
   const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
@@ -59,6 +61,10 @@ export function DishCard({data}){
     navigate(`/edit/${data.id}`)
   };
 
+  function handleAddOrder() {
+    addToOrder(data.id, quantity);
+  }
+
   return (
     <Container>
 
@@ -85,8 +91,8 @@ export function DishCard({data}){
 
         {[USER_ROLE.CUSTOMER].includes(user.role) &&
           <section>
-            <Stepper />
-            <Button title="incluir"/>
+            <Stepper onChange={setQuantity}/>
+            <Button title="incluir" onClick={handleAddOrder}/>
           </section>
         }
       </section>

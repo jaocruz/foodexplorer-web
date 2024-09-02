@@ -10,19 +10,26 @@ import { Input } from "../input";
 
 import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt  } from "react-icons/pi";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header({ onSearch }){
+  const { signOut, user, getOrder } = useAuth();
+
   const [search, setSearch] = useState("");
+  const [orderCount, setOrderCount] = useState(0);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const order = getOrder();
+    const count = order.reduce((total, item) => total + item.quantity, 0);
+    setOrderCount(count);
+  }, [getOrder])
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
     onSearch(e.target.value)
   };
-
-  const navigate = useNavigate();
-
-  const { signOut, user } = useAuth();
 
   function handleSignOut() {
     navigate("/")
@@ -62,7 +69,7 @@ export function Header({ onSearch }){
 
         {[USER_ROLE.CUSTOMER].includes(user.role) &&
           <Link to="/payment">
-            <Button icon={PiReceipt} title="Pedidos (0)"/>
+            <Button icon={PiReceipt} title={`Pedidos (${orderCount})`} />
           </Link>
         }
 

@@ -11,9 +11,9 @@ export const Container = styled.main`
     max-width: 1120px;
 
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 
+    justify-content: space-between;
     gap: 48px;
 
     .favorite-dishes {

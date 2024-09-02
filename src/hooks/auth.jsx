@@ -7,6 +7,26 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }){
 
   const [data, setData] = useState({});
+  const [order, setOrder] = useState([]);
+
+  useEffect(() => {
+    const loadData = () => {
+      const user = localStorage.getItem("@foodexplorer:user");
+      const token = localStorage.getItem("@foodexplorer:token");
+      const saveOrder = localStorage.getItem("@foodexplorer:order");
+
+      if(token && user) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        setData({ token, user: JSON.parse(user) });
+      }
+  
+      if(saveOrder) {
+        setOrder(JSON.parse(saveOrder));
+      }
+    }
+
+    loadData();
+  }, []);
 
   async function signIn({ email, password }) {
     try {
@@ -34,28 +54,43 @@ function AuthProvider({ children }){
   async function signOut() {
     localStorage.removeItem("@foodexplorer:user");
     localStorage.removeItem("@foodexplorer:token");
+    localStorage.removeItem("@foodexplorer:order");
 
     setData({});
+    setOrder([]);
   }
 
-  useEffect(() => {
-    const user = localStorage.getItem("@foodexplorer:user");
-    const token = localStorage.getItem("@foodexplorer:token");
+  function addToOrder(dishId, quantity) {
+    setOrder((prevOrder) => {
+      const existingItem = prevOrder.find(item => item.dishId === dishId);
 
-    if(token && user) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      let newOrder;
 
-      setData({
-        token,
-        user: JSON.parse(user)
-      })
-    }
-  }, []);
+      if(existingItem) {
+        newOrder = prevOrder.map(item =>
+          item.dishId === dishId ? {...item, quantity: item.quantity + quantity} : item
+        );
+      }
+
+      else {
+        newOrder = [...prevOrder, { dishId, quantity }];
+      }
+
+      localStorage.setItem("@foodexplorer:order", JSON.stringify(newOrder));
+      return newOrder;
+    })
+  };
+
+  function getOrder() {
+    return order;
+  }
 
   return (
     <AuthContext.Provider value={{
       signIn,
       signOut,
+      getOrder,
+      addToOrder,
       user: data.user
     }}>
       {children}

@@ -26,13 +26,19 @@ export function Payment(){
     const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
     setOrders(savedOrders);
     
-    console.log(savedOrders);
+    const totalAmount = savedOrders.reduce((sum, order) => {
+      return sum + order.description.reduce((orderSum, dish) => {
+        const price = parseFloat(dish.price.replace(",", "."));
+        const quantity = parseFloat(dish.quantity);
 
-    const totalAmount = savedOrders.reduce((sum, order) =>
-      sum + order.description.reduce((orderSum, dish) =>
-        orderSum + (dish.price * dish.quantity), 0
-      ), 0
-    );
+        if(!isNaN(price) && !isNaN(quantity)) {
+          return orderSum + (price * quantity);
+        }
+        
+        return orderSum;
+      }, 0)
+    }, 0);
+
     setTotal(totalAmount);
   }, []);
 

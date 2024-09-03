@@ -9,11 +9,14 @@ import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife
 
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
 
 export function Payment(){
+  const { removeFromOrder } = useAuth();
+
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(0);
-  
+
   const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
   const [isCreditOpen, setIsCreditOpen] = useState(false);
   const [isPaymentAproved, setIsPaymentAproved] = useState(false);
@@ -25,8 +28,12 @@ export function Payment(){
   useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
     setOrders(savedOrders);
-    
-    const totalAmount = savedOrders.reduce((sum, order) => {
+    calculateTotal(savedOrders);
+
+  }, []);  
+
+  function calculateTotal(orderList) {
+    const totalAmount = orderList.reduce((sum, order) => {
       return sum + order.description.reduce((orderSum, dish) => {
         const price = parseFloat(dish.price.replace(",", "."));
         const quantity = parseFloat(dish.quantity);
@@ -39,8 +46,16 @@ export function Payment(){
       }, 0)
     }, 0);
 
-    setTotal(totalAmount);
-  }, []);
+    setTotal(totalAmount)
+  };
+
+  async function handleRemoveOrder(orderId, dishId) {
+    await removeFromOrder(orderId, dishId);
+
+    const updatedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
+    setOrders(updatedOrders);
+    calculateTotal(updatedOrders);
+  };
 
   function handlePix() {
     if (isPaymentAproved) return;
@@ -51,7 +66,7 @@ export function Payment(){
 
     setIsQRCodeOpen(!isQRCodeOpen);
     setSelectedPayment(selectedPayment === "pix" ? null : "pix");
-  }
+  };
 
   function handleCredit() {
     if (isPaymentAproved) return;
@@ -62,12 +77,12 @@ export function Payment(){
 
     setIsCreditOpen(!isCreditOpen);
     setSelectedPayment(selectedPayment === "credit" ? null : "credit");
-  }
+  };
 
   function handlePayment() {
     setIsCreditOpen(false);
     setIsPaymentAproved(true);
-  }
+  };
 
   return(
     <>
@@ -81,13 +96,13 @@ export function Payment(){
 
           <div key={order.id} className="pedido">
             {order.description.map(dish => (
-              <DishSection key={dish.dishId}>
+              <DishSection key={dish.id}>
                 <img src={`${dishURL}${dish.photo}`} alt="" />
 
                 <div className="dish-info">
                   <h2>{dish.quantity} x {dish.name}</h2>
                   <span>R$ {dish.price}</span>
-                  <a href="#">Excluir</a>
+                  <a onClick={() => handleRemoveOrder(order.id, dish.id)}>Excluir</a>
                 </div>
               </DishSection>
             ))}

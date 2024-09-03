@@ -61,9 +61,6 @@ export function DishCard({data}){
     navigate(`/edit/${data.id}`)
   };
 
-  // function handleAddOrder() {
-  //   addToOrder(data.id, quantity);
-
   //   const existingOrder = JSON.parse(localStorage.getItem("orders")) || [];
 
   //   const newOrder = {

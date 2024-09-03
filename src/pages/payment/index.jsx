@@ -8,6 +8,7 @@ import { Button } from "../../components/button"
 import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife } from "react-icons/pi";
 
 import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export function Payment(){
   const [orders, setOrders] = useState([]);
@@ -18,6 +19,8 @@ export function Payment(){
   const [isPaymentAproved, setIsPaymentAproved] = useState(false);
 
   const [selectedPayment, setSelectedPayment] = useState(null);
+
+  const dishURL = `${api.defaults.baseURL}/files/`;
 
   useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
@@ -73,22 +76,21 @@ export function Payment(){
           <div key={order.id} className="pedido">
             {order.description.map(dish => (
               <DishSection key={dish.dishId}>
-                <img src={dish.photo} alt="" />
+                <img src={`${dishURL}${dish.photo}`} alt="" />
 
                 <div className="dish-info">
                   <h2>{dish.quantity} x {dish.name}</h2>
-                  {/* 
-                  <span>R$ {dish.price.toFixed(2)}</span>
-                  <a href="#">Excluir</a> */}
+                  <span>R$ {dish.price}</span>
+                  <a href="#">Excluir</a>
                 </div>
-                  </DishSection>
-                ))
-              }
-            </div>
+              </DishSection>
+            ))}
+          </div>
+
           ))
         }
 
-        {/* <h2 className="total">Total: R$ {total.toFixed(2)}</h2> */}
+        <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
       </section>
 
       <h1>Pagamento</h1>

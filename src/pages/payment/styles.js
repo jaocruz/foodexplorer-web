@@ -80,6 +80,7 @@ export const DishSection = styled.div`
 
   > .dish-info {
     display: grid;
+    width: 70%;
 
     grid-template-areas:
     "title price"
@@ -90,11 +91,13 @@ export const DishSection = styled.div`
     column-gap: 10px;
 
     h2 {
+      white-space: nowrap;
       grid-area: title;
       ${({theme}) => theme.FONTS.POPPINS_200medium};
     }
 
     span {
+      text-align: right;
       grid-area: price;
       color: ${({theme}) => theme.COLORS.LIGHT_400};
       ${({theme}) => theme.FONTS.ROBOTO_SMALLESTregular};

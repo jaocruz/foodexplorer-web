@@ -20,10 +20,16 @@ export function Payment(){
   const [selectedPayment, setSelectedPayment] = useState(null);
 
   useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
     setOrders(savedOrders);
+    
+    console.log(savedOrders);
 
-    const totalAmount = savedOrders.reduce((sum, order) => sum + (order.price * order.quantity), 0);
+    const totalAmount = savedOrders.reduce((sum, order) =>
+      sum + order.description.reduce((orderSum, dish) =>
+        orderSum + (dish.price * dish.quantity), 0
+      ), 0
+    );
     setTotal(totalAmount);
   }, []);
 
@@ -62,21 +68,27 @@ export function Payment(){
       <h1>Meu pedido</h1>
 
       <section>
-        <div className="pedido">
-          {orders.map(order => (
-            <DishSection key={order.id}>
-              <img src={order.photo} alt="" />
-              
-              <div className="dish-info">
-                <h2>{order.quantity} x {order.name}</h2>
-                {/* <span>R$ {order.price.toFixed(2)}</span> */}
-                <a>Excluir</a>
-              </div>
-            </DishSection>
-          ))}
-        </div>
+        {orders.length > 0 && orders.map(order => (
 
-        <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
+          <div key={order.id} className="pedido">
+            {order.description.map(dish => (
+              <DishSection key={dish.dishId}>
+                <img src={dish.photo} alt="" />
+
+                <div className="dish-info">
+                  <h2>{dish.quantity} x {dish.name}</h2>
+                  {/* 
+                  <span>R$ {dish.price.toFixed(2)}</span>
+                  <a href="#">Excluir</a> */}
+                </div>
+                  </DishSection>
+                ))
+              }
+            </div>
+          ))
+        }
+
+        {/* <h2 className="total">Total: R$ {total.toFixed(2)}</h2> */}
       </section>
 
       <h1>Pagamento</h1>

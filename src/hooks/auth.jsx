@@ -62,13 +62,19 @@ function AuthProvider({ children }){
     setOrder([]);
   }
 
-  function addToOrder(dishId, quantity) {
+  async function addToOrder(dishId, quantity) {
+    // busca as informações do prato
+    const response = await api.get(`/dishs/${dishId}`);
+    const dishInfo = response.data;
+
+    // adiciona a quantidade ao prato
+    const newDish = { ...dishInfo, quantity };
+
     setOrder((prevOrder) => {
       // encontra o indice do pedido pendente
       const existingOrderIndex = prevOrder.findIndex(item => item.status === "pendente");
 
       let newOrder;
-      const newDish = { dishId, quantity };
 
       if(existingOrderIndex > -1) {
         // atualiza o pedido existente

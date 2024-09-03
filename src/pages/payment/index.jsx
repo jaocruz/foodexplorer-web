@@ -7,15 +7,25 @@ import { Button } from "../../components/button"
 
 import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife } from "react-icons/pi";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Payment(){
+  const [orders, setOrders] = useState([]);
+  const [total, setTotal] = useState(0);
   
   const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
   const [isCreditOpen, setIsCreditOpen] = useState(false);
   const [isPaymentAproved, setIsPaymentAproved] = useState(false);
 
   const [selectedPayment, setSelectedPayment] = useState(null);
+
+  useEffect(() => {
+    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    setOrders(savedOrders);
+
+    const totalAmount = savedOrders.reduce((sum, order) => sum + (order.price * order.quantity), 0);
+    setTotal(totalAmount);
+  }, []);
 
   function handlePix() {
     if (isPaymentAproved) return;
@@ -53,38 +63,20 @@ export function Payment(){
 
       <section>
         <div className="pedido">
-          <DishSection>
-            <img src="/public/bolo-de-damasco.png" alt="" />
-            
-            <div className="dish-info">
-              <h2>1 x Bolo de Damasco</h2>
-              <span>R$ 25,97</span>
-              <a>Excluir</a>
-            </div>
-          </DishSection>
-
-          <DishSection>
-            <img src="/public/bolo-de-damasco.png" alt="" />
-            
-            <div className="dish-info">
-              <h2>1 x Bolo de Damasco</h2>
-              <span>R$ 25,97</span>
-              <a>Excluir</a>
-            </div>
-          </DishSection>
-
-          <DishSection>
-            <img src="/public/bolo-de-damasco.png" alt="" />
-            
-            <div className="dish-info">
-              <h2>1 x Bolo de Damasco</h2>
-              <span>R$ 25,97</span>
-              <a>Excluir</a>
-            </div>
-          </DishSection>
+          {orders.map(order => (
+            <DishSection key={order.id}>
+              <img src={order.photo} alt="" />
+              
+              <div className="dish-info">
+                <h2>{order.quantity} x {order.name}</h2>
+                {/* <span>R$ {order.price.toFixed(2)}</span> */}
+                <a>Excluir</a>
+              </div>
+            </DishSection>
+          ))}
         </div>
 
-        <h2 className="total">Total: R$ 103,88</h2>
+        <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
       </section>
 
       <h1>Pagamento</h1>

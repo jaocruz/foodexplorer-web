@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 import { api } from "../services/api";
 
+import { v4 as uuidv4 } from "uuid";
+
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }){
@@ -62,18 +64,41 @@ function AuthProvider({ children }){
 
   function addToOrder(dishId, quantity) {
     setOrder((prevOrder) => {
-      const existingItem = prevOrder.find(item => item.dishId === dishId);
+      // encontra o indice do pedido pendente
+      const existingOrderIndex = prevOrder.findIndex(item => item.status === "pendente");
 
       let newOrder;
+      const newDish = { dishId, quantity };
 
-      if(existingItem) {
-        newOrder = prevOrder.map(item =>
-          item.dishId === dishId ? {...item, quantity: item.quantity + quantity} : item
-        );
+      if(existingOrderIndex > -1) {
+        // atualiza o pedido existente
+        newOrder = [...prevOrder]
+        const existingOrder = newOrder[existingOrderIndex];
+
+        // encontra o indice d prato no pedido ja existente
+        const dishIndex = existingOrder.description.findIndex(dish => dish.dishId === dishId);
+
+        if(dishIndex > -1) {
+          // atualiza a quantidade do prato ja existente no pedido
+          newOrder[existingOrderIndex].description[dishIndex].quantity += quantity;
+        }
+
+        else{
+          // adiciona o prato ao pedido existente caso ja não esteja
+          newOrder[existingOrderIndex].description.push(newDish);
+        }
       }
 
       else {
-        newOrder = [...prevOrder, { dishId, quantity }];
+        newOrder = [
+          ...prevOrder,
+          {
+            id: uuidv4(),
+            status: "pendente",
+            description: [newDish],
+            timestamp: new Date().toISOString()
+          }
+        ]
       }
 
       localStorage.setItem("@foodexplorer:order", JSON.stringify(newOrder));

@@ -61,8 +61,34 @@ export function DishCard({data}){
     navigate(`/edit/${data.id}`)
   };
 
-  function handleAddOrder() {
-    addToOrder(data.id, quantity);
+  // function handleAddOrder() {
+  //   addToOrder(data.id, quantity);
+
+  //   const existingOrder = JSON.parse(localStorage.getItem("orders")) || [];
+
+  //   const newOrder = {
+  //     id: data.id,
+  //     name: data.name,
+  //     quantity: quantity,
+  //     price: data.price,
+  //     photo: data.photo
+  //   };
+
+  //   const orderIndex = existingOrder.findIndex(order => order.id === data.id);
+
+  //   if(orderIndex > -1) {
+  //     existingOrder[orderIndex] = newOrder;
+  //   }
+
+  //   else {
+  //     existingOrder.push(newOrder);
+  //   }
+
+  //   localStorage.setItem("orders", JSON.stringify(existingOrder));
+  // };
+
+  function handleAddOrder(){
+    addToOrder(data.id, quantity)
   }
 
   return (

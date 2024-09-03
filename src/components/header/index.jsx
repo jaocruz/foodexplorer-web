@@ -21,8 +21,14 @@ export function Header({ onSearch }){
   const navigate = useNavigate();
 
   useEffect(() => {
-    const order = getOrder();
-    const count = order.reduce((total, item) => total + item.quantity, 0);
+    const order = getOrder() || [];
+
+    const count = order.reduce((total, item) => {
+      return total + item.description.reduce((subTotal, dish) => {
+        return subTotal + (typeof dish.quantity === "number" ? dish.quantity : 0);
+      }, 0)
+    }, 0);
+
     setOrderCount(count);
   }, [getOrder])
 

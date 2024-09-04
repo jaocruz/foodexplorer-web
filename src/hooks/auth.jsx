@@ -70,7 +70,15 @@ function AuthProvider({ children }){
     try {
       const response = await api.get(`/dishs/${dishId}`);
       const dishInfo = response.data;
-      const newDish = { ...dishInfo, quantity };
+
+      const filteredDish = {
+        id: dishInfo.id,
+        name: dishInfo.name,
+        photo: dishInfo.photo,
+        price: dishInfo.price
+      }
+
+      const newDish = { ...filteredDish, quantity };
   
       setOrder((prevOrder) => {
         const existingOrderIndex = prevOrder.findIndex(item => item.status === "pendente");
@@ -106,7 +114,7 @@ function AuthProvider({ children }){
     }
   };
 
-  async function removeFromOrder(orderId, dishId, quantity) {
+  async function removeFromOrder(orderId, dishId = null, quantity = null) {
     try {
       setOrder((prevOrder) => {
         const newOrder = [...prevOrder];
@@ -116,22 +124,28 @@ function AuthProvider({ children }){
         if (existingOrderIndex > -1) {
           const existingOrder = newOrder[existingOrderIndex];
 
-          const dishIndex = existingOrder.description.findIndex(dish => dish.id === dishId);
+          if(dishId) {
+            const dishIndex = existingOrder.description.findIndex(dish => dish.id === dishId);
 
-          if (dishIndex > -1) {
-            const dishInOrder = existingOrder.description[dishIndex];
+            if (dishIndex > -1) {
+              const dishInOrder = existingOrder.description[dishIndex];
+  
+              if(quantity && dishInOrder.quantity > quantity) {
+                dishInOrder.quantity -= quantity;
+              }
+              
+              else {
+                existingOrder.description.splice(dishIndex, 1);
+              }
+  
+              if (existingOrder.description.length === 0) {
+                newOrder.splice(existingOrderIndex, 1);
+              }
+            }
+          }
 
-            if(dishInOrder.quantity > quantity) {
-              dishInOrder.quantity -= quantity;
-            }
-            
-            else {
-              existingOrder.description.splice(dishIndex, 1);
-            }
-
-            if (existingOrder.description.length === 0) {
-              newOrder.splice(existingOrderIndex, 1);
-            }
+          else {
+            newOrder.splice(existingOrderIndex, 1);
           }
         };
 

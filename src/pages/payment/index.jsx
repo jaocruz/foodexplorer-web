@@ -11,8 +11,12 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 
+import { useLocation } from "react-router-dom";
+
 export function Payment(){
   const { removeFromOrder } = useAuth();
+
+  const location = useLocation();
 
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(0);
@@ -20,6 +24,10 @@ export function Payment(){
   const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
   const [isCreditOpen, setIsCreditOpen] = useState(false);
   const [isPaymentAproved, setIsPaymentAproved] = useState(false);
+
+  const [creditCard, setCreditCard] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [verifyCode, setVerifyCode] = useState("");
 
   const [selectedPayment, setSelectedPayment] = useState(null);
 
@@ -29,7 +37,6 @@ export function Payment(){
     const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
     setOrders(savedOrders);
     calculateTotal(savedOrders);
-
   }, []);  
 
   function calculateTotal(orderList) {
@@ -79,7 +86,25 @@ export function Payment(){
     setSelectedPayment(selectedPayment === "credit" ? null : "credit");
   };
 
-  function handlePayment() {
+  async function handlePayment() {
+    if(!creditCard || !expiryDate || !verifyCode) {
+      alert("Todos os campos são obrigatórios!");
+      return;
+    }
+
+    const orderData = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
+    
+    const description = orderData[0].description.map(dish => ({
+      name: dish.name,
+      quantity: dish.quantity
+    }));
+
+    await api.post(`/orders`, { description });
+
+    removeFromOrder(orderData[0].id);
+
+    localStorage.removeItem("@foodexplorer:order");
+
     setIsCreditOpen(false);
     setIsPaymentAproved(true);
   };
@@ -146,17 +171,20 @@ export function Payment(){
               <Input
                 title="Número do cartão"
                 placeholder="0000 0000 0000 0000"
+                onChange={e => setCreditCard(e.target.value)}
               />
 
               <div className="second-row">
                 <Input
                   title="Validade"
                   placeholder="04/25"
+                  onChange={e => setExpiryDate(e.target.value)}
                 />
 
                 <Input
                   title="CVV"
                   placeholder="000"
+                  onChange={e => setVerifyCode(e.target.value)}
                 />
               </div>
 

@@ -6,8 +6,28 @@ import { Footer } from "../../components/footer"
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/user-roles";
 
+import { api } from "../../services/api";
+import { useEffect, useState } from "react";
+
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 export function Orders(){
   const { user } = useAuth();
+  const [ordersList, setOrdersList] = useState([]);
+
+  useEffect(() => {
+    async function loadOrders() {
+      const response = await api.get("/orders");
+      setOrdersList(response.data);
+    }
+
+    loadOrders();
+  }, []);
+
+  function formDateTime(dateTimeString){
+    return format(new Date(dateTimeString), "dd/MM 'às' HH:mm", { locale: ptBR });
+  }
 
   function handleStatus(e){
     const status = e.target.value;
@@ -35,32 +55,39 @@ export function Orders(){
             </tr>
         </thead>
 
-        <tbody>
-          <tr>
-              <td>
-                {[USER_ROLE.CUSTOMER].includes(user.role) &&
-                  <section>
-                    <article className="order-status pendente"/>Pendente
-                  </section>
-                }
-                
-                {[USER_ROLE.ADMIN].includes(user.role) &&
-                  <div className="admin-select">
-                    <article className="order-status" id="status-indicator"/>
-                    <select name="status" id="status" onChange={handleStatus}>
-                      <option value="pendente">Pendente</option>
-                      <option value="preparando">Preparando</option>
-                      <option value="entregue">Entregue</option>
-                    </select>
-                  </div>
-                }
-              </td>
-              
-              <td>00000004</td>
-              <td>1 x Salada Radish, 1 x Torradas de Parma, 1 x Chá de Canela, 1 x Suco de Maracujá</td>
-              <td>20/05 às 18h00</td>
-          </tr>
-        </tbody>
+        {
+          ordersList.map((order) => (
+            <tbody>
+              <tr key={order.id}>
+                  <td>
+                    {[USER_ROLE.CUSTOMER].includes(user.role) &&
+                      <section>
+                        <article className={`order-status ${order.status}`}/>
+                        {order.status}
+                      </section>
+                    }
+                    
+                    {[USER_ROLE.ADMIN].includes(user.role) &&
+                      <div className="admin-select">
+                        <article className="order-status" id="status-indicator"/>
+                        <select name="status" id="status" onChange={handleStatus}>
+                          <option value="pendente">Pendente</option>
+                          <option value="preparando">Preparando</option>
+                          <option value="entregue">Entregue</option>
+                        </select>
+                      </div>
+                    }
+                  </td>
+                  
+                  <td>{order.id}</td>
+                  <td>{order.details}</td>
+                  <td>{formDateTime(order.created_at)}</td>
+              </tr>
+            </tbody>
+          ))
+        }
+
+        
         </table>
     </Container>
 

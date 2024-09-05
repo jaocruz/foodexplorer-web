@@ -29,14 +29,18 @@ export function Orders(){
     return format(new Date(dateTimeString), "dd/MM 'às' HH:mm", { locale: ptBR });
   }
 
-  function handleStatus(e){
-    const status = e.target.value;
-    const statusIndicator = document.getElementById("status-indicator");
+  function handleStatus(e, orderId){
+    const newStatus = e.target.value;
 
-    statusIndicator.classList.remove("pendente", "preparando", "entregue");
-
-    statusIndicator.classList.add(status);
+    api.put(`/orders/${orderId}`, { status: newStatus })
+    .then(() => {
+      setOrdersList(ordersList.map(order => order.id === orderId ?
+        {...order, status: newStatus } : order
+      ))
+    })
   }
+
+  const filteredOrders = user.role === USER_ROLE.CUSTOMER ? ordersList.filter(order => order.user_id === user.id) : ordersList;
 
   return(
     <>
@@ -55,37 +59,37 @@ export function Orders(){
             </tr>
         </thead>
 
-        {
-          ordersList.map((order) => (
-            <tbody>
+        <tbody>
+          {
+            filteredOrders.map((order) => (
               <tr key={order.id}>
-                  <td>
-                    {[USER_ROLE.CUSTOMER].includes(user.role) &&
-                      <section>
-                        <article className={`order-status ${order.status}`}/>
-                        {order.status}
-                      </section>
-                    }
+                <td>
+                  {[USER_ROLE.CUSTOMER].includes(user.role) &&
+                    <section>
+                      <article className={`order-status ${order.status}`}/>
+                      {order.status}
+                    </section>
+                  }
                     
-                    {[USER_ROLE.ADMIN].includes(user.role) &&
-                      <div className="admin-select">
-                        <article className="order-status" id="status-indicator"/>
-                        <select name="status" id="status" onChange={handleStatus}>
-                          <option value="pendente">Pendente</option>
-                          <option value="preparando">Preparando</option>
-                          <option value="entregue">Entregue</option>
-                        </select>
-                      </div>
-                    }
-                  </td>
+                  {[USER_ROLE.ADMIN].includes(user.role) &&
+                    <div className="admin-select">
+                      <article className={`order-status ${order.status}`}/>
+                      <select name="status" id="status" onChange={(e) => handleStatus(e, order.id)}>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Preparando">Preparando</option>
+                        <option value="Entregue">Entregue</option>
+                      </select>
+                    </div>
+                  }
+                </td>
                   
-                  <td>{order.id}</td>
-                  <td>{order.details}</td>
-                  <td>{formDateTime(order.created_at)}</td>
+                <td>{order.id}</td>
+                <td>{order.details}</td>
+                <td>{formDateTime(order.created_at)}</td>
               </tr>
-            </tbody>
-          ))
-        }
+            ))
+          }
+        </tbody>
 
         
         </table>

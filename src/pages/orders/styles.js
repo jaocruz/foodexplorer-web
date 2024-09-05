@@ -45,15 +45,15 @@ export const Container = styled.main`
         border-radius: 50%;
       }
 
-      .pendente {
+      .Pendente {
         background-color: ${({theme}) => theme.COLORS.TOMATO_300};
       }
 
-      .preparando {
+      .Preparando {
         background-color: ${({theme}) => theme.COLORS.CARROT};
       }
 
-      .entregue {
+      .Entregue {
         background-color: ${({theme}) => theme.COLORS.MINT};
       }
     }

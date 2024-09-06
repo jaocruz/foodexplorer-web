@@ -11,19 +11,19 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export function Payment(){
   const { removeFromOrder } = useAuth();
 
-  const location = useLocation();
+  const { orderId } = useParams();
 
-  const [orders, setOrders] = useState([]);
+  const [order, setOrder] = useState(null);
   const [total, setTotal] = useState(0);
 
   const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
   const [isCreditOpen, setIsCreditOpen] = useState(false);
-  const [isPaymentAproved, setIsPaymentAproved] = useState(false);
+  const [isPendingModalOpen, setIsPendingModalOpen] = useState(true);
 
   const [creditCard, setCreditCard] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -34,10 +34,30 @@ export function Payment(){
   const dishURL = `${api.defaults.baseURL}/files/`;
 
   useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
-    setOrders(savedOrders);
-    calculateTotal(savedOrders);
-  }, []);  
+    async function loadOrders() {
+      if(orderId) {
+        const response = await api.get(`/orders/${orderId}`)
+      
+        if(response.data && response.data.order) {
+          setOrder(response.data.order);
+          calculateTotal(response.data.order.description || []);
+        }
+
+        else {
+          setOrder([]);
+        }
+      }
+
+      else {
+        const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
+        
+        setOrder(savedOrders);
+        calculateTotal(savedOrders);
+      }
+    }
+
+    loadOrders();
+  }, [orderId])
 
   function calculateTotal(orderList) {
     const totalAmount = orderList.reduce((sum, order) => {
@@ -60,30 +80,41 @@ export function Payment(){
     await removeFromOrder(orderId, dishId);
 
     const updatedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
-    setOrders(updatedOrders);
+    setOrder(updatedOrders);
     calculateTotal(updatedOrders);
   };
 
+  function handlePaymentMethodSelection(method) {
+    if(selectedPayment === method) {
+      setIsQRCodeOpen(false);
+      setIsCreditOpen(false);
+
+      setSelectedPayment(null);
+      setIsPendingModalOpen(true);
+    }
+
+    else {
+      if(method === "pix") {
+        setIsQRCodeOpen(true);
+        setIsCreditOpen(false);
+      }
+
+      else if(method === "credit") {
+        setIsQRCodeOpen(false);
+        setIsCreditOpen(true);
+      }
+
+      setIsPendingModalOpen(false);
+      setSelectedPayment(method);
+    }
+  }
+
   function handlePix() {
-    if (isPaymentAproved) return;
-
-    if(selectedPayment === "credit") {
-      setIsCreditOpen(false)
-    };
-
-    setIsQRCodeOpen(!isQRCodeOpen);
-    setSelectedPayment(selectedPayment === "pix" ? null : "pix");
+    handlePaymentMethodSelection("pix");
   };
 
   function handleCredit() {
-    if (isPaymentAproved) return;
-
-    if(selectedPayment === "pix") {
-      setIsQRCodeOpen(false)
-    };
-
-    setIsCreditOpen(!isCreditOpen);
-    setSelectedPayment(selectedPayment === "credit" ? null : "credit");
+    handlePaymentMethodSelection("credit");
   };
 
   async function handlePayment() {
@@ -106,8 +137,11 @@ export function Payment(){
     localStorage.removeItem("@foodexplorer:order");
 
     setIsCreditOpen(false);
-    setIsPaymentAproved(true);
   };
+
+  const isOrderDisabled = order && (order.status === "Preparando" || order.status === "Entregue")
+
+  const showPendindModal = !isOrderDisabled;
 
   return(
     <>
@@ -116,57 +150,78 @@ export function Payment(){
     <Container>
       <h1>Meu pedido</h1>
 
-      <section>
-        {orders.length > 0 && orders.map(order => (
+      {
+        orderId ? (
+          <section>
 
-          <div key={order.id} className="pedido">
-            {order.description.map(dish => (
-              <DishSection key={dish.id}>
-                <img src={`${dishURL}${dish.photo}`} alt="" />
+            <div className="pedido">
 
+              {order && (
+                <DishSection>
                 <div className="dish-info">
-                  <h2>{dish.quantity} x {dish.name}</h2>
-                  <span>R$ {dish.price}</span>
-                  <a onClick={() => handleRemoveOrder(order.id, dish.id)}>Excluir</a>
+                <h2>{order.details}</h2>
                 </div>
-              </DishSection>
-            ))}
-          </div>
+                </DishSection>
+              )}
+            </div>
 
-          ))
-        }
+            <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
+          </section>
+        ) : (
+          <section>
+            {Array.isArray(order) && order.length > 0 && order.map(order => (
 
-        <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
-      </section>
+              <div key={order.id} className="pedido">
+                {order.description.map(dish => (
+                  <DishSection key={dish.id}>
+                    <img src={`${dishURL}${dish.photo}`} alt="" />
+
+                    <div className="dish-info">
+                      <h2>{dish.quantity} x {dish.name}</h2>
+                      <span>R$ {dish.price}</span>
+                      <a onClick={() => handleRemoveOrder(order.id, dish.id)}>Excluir</a>
+                    </div>
+                  </DishSection>
+                ))}
+              </div>
+              ))
+            }
+
+            <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
+          </section>
+        )
+      }
 
       <h1>Pagamento</h1>
 
       <PaymentModal>
         <div className="payment-method">
-          <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={handlePix}>
+          <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={!isOrderDisabled ? handlePix : undefined}>
             <PiPixLogo/>
             <h1>PIX</h1>
           </div>
 
-          <div className={`credit ${selectedPayment === "credit" ? "selected" : ""}`} onClick={handleCredit}>
+          <div className={`credit ${selectedPayment === "credit" ? "selected" : ""}`} onClick={!isOrderDisabled ? handleCredit : undefined}>
             <PiCreditCard/>
             <h1>Crédito</h1>
           </div>
         </div>
 
         <div className="payment-info">
-          {!isQRCodeOpen && !isCreditOpen && !isPaymentAproved && (
-            <div className="checkout-payment">
-              <PiClock/>
-              <h1>Aguardando pagamento no caixa</h1>
-            </div>
-          )}
+          {
+            showPendindModal && isPendingModalOpen && (
+              <div className="checkout-payment">
+                <PiClock/>
+                <h1>Aguardando pagamento no caixa</h1>
+              </div>
+            )
+          }
 
-          {isQRCodeOpen && (
+          {isQRCodeOpen && !isCreditOpen && !isPendingModalOpen && (
             <img src="/pix-qrcode.png" alt="" />
           )} 
 
-          {isCreditOpen && (
+          {isCreditOpen && !isQRCodeOpen && !isPendingModalOpen && (
             <form>
               <Input
                 title="Número do cartão"
@@ -196,17 +251,23 @@ export function Payment(){
             </form>
           )}
 
-          {isPaymentAproved && (
-            <div className="aproved-payment">
-              <PiCheckCircle/>
-              <h1>Pagamento aprovado!</h1>
-            </div>
-          )}
+          {
+            order && order.status === "Preparando" && (
+              <div className="aproved-payment">
+                <PiCheckCircle/>
+                <h1>Pagamento aprovado!</h1>
+              </div>
+            )
+          }
 
-          {/* <div className="delivered-order">
-            <PiForkKnife/>
-            <h1>Pedido entregue!</h1>
-          </div> */}
+          {
+            order && order.status === "Entregue" && (
+              <div className="delivered-order">
+                <PiForkKnife/>
+                <h1>Pedido entregue!</h1>
+              </div>
+            )
+          }
         </div>
       </PaymentModal>
     </Container>

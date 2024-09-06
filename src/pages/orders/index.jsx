@@ -12,9 +12,13 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+import { useNavigate } from "react-router-dom";
+
 export function Orders(){
   const { user } = useAuth();
   const [ordersList, setOrdersList] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadOrders() {
@@ -27,7 +31,7 @@ export function Orders(){
 
   function formDateTime(dateTimeString){
     return format(new Date(dateTimeString), "dd/MM 'às' HH:mm", { locale: ptBR });
-  }
+  };
 
   function handleStatus(e, orderId){
     const newStatus = e.target.value;
@@ -38,7 +42,14 @@ export function Orders(){
         {...order, status: newStatus } : order
       ))
     })
-  }
+  };
+
+  async function handleShowOrder(orderId){
+    const order = await api.get(`/orders/${orderId}`);
+    console.log(order.data);
+
+    navigate(`/payment/${orderId}`)
+  };
 
   const filteredOrders = user.role === USER_ROLE.CUSTOMER ? ordersList.filter(order => order.user_id === user.id) : ordersList;
 
@@ -65,7 +76,7 @@ export function Orders(){
               <tr key={order.id}>
                 <td>
                   {[USER_ROLE.CUSTOMER].includes(user.role) &&
-                    <section>
+                    <section onClick={() => handleShowOrder(order.id)}>
                       <article className={`order-status ${order.status}`}/>
                       {order.status}
                     </section>
@@ -74,7 +85,7 @@ export function Orders(){
                   {[USER_ROLE.ADMIN].includes(user.role) &&
                     <div className="admin-select">
                       <article className={`order-status ${order.status}`}/>
-                      <select name="status" id="status" onChange={(e) => handleStatus(e, order.id)}>
+                      <select name="status" id="status" onChange={(e) => handleStatus(e, orderId)}>
                         <option value="Pendente">Pendente</option>
                         <option value="Preparando">Preparando</option>
                         <option value="Entregue">Entregue</option>
@@ -89,10 +100,8 @@ export function Orders(){
               </tr>
             ))
           }
-        </tbody>
-
-        
-        </table>
+        </tbody>     
+      </table>
     </Container>
 
     <Footer/>

@@ -21,6 +21,8 @@ export function AppRoutes(){
       <Route path="/payment" element={<Payment/>} />
       <Route path="/orders" element={<Orders/>} />
       <Route path="/favorites" element={<Favorites/>} />
+
+      <Route path="/payment/:orderId" element={<Payment />} />
     </Routes>
   )
 }

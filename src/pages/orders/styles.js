@@ -35,8 +35,9 @@ export const Container = styled.main`
       section {
         display: flex;
         
-        align-items: center;
         column-gap: 8px;
+        cursor: pointer;
+        align-items: center;
       }
 
       .order-status {

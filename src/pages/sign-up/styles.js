@@ -9,6 +9,11 @@ export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1024px){
+    gap: 74px;
+    flex-direction: column;
+  }
 `;
 
 export const Brand = styled.div`
@@ -53,5 +58,14 @@ export const Form = styled.form`
     text-align: center;
     ${({theme}) => theme.FONTS.POPPINS_100medium}
     color: ${({theme}) => theme.COLORS.LIGHT_100};
+  }
+
+  @media (max-width: 1024px){
+    background: none;
+    padding: 0;
+
+    > h1 {
+      display: none;
+    }
   }
 `;

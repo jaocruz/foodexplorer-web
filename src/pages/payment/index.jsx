@@ -68,7 +68,6 @@ export function Payment(){
         }
         
         else {
-
           if (localStorageOrder.length > 0) {
             console.log("LocalStorage Order:", localStorageOrder);
             setOrder(localStorageOrder);
@@ -158,7 +157,7 @@ export function Payment(){
       setIsPendingModalOpen(false);
       setSelectedPayment(method);
     }
-  }
+  };
 
   function handlePix() {
     handlePaymentMethodSelection("pix");

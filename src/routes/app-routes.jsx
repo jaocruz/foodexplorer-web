@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 import { Home } from "../pages/home"
 import { AddDish } from "../pages/add-dish"
@@ -11,6 +11,8 @@ import { Orders } from "../pages/orders"
 import { Favorites } from "../pages/favorites"
 
 export function AppRoutes(){
+  const user = localStorage.getItem("@foodexplorer:user");
+  
   return(
     <Routes>
       <Route path="/" element={<Home/>} />
@@ -23,6 +25,8 @@ export function AppRoutes(){
       <Route path="/favorites" element={<Favorites/>} />
 
       <Route path="/payment/:orderId" element={<Payment />} />
+
+      <Route path="*" element={<Navigate to="/"/>}/>
     </Routes>
   )
 }

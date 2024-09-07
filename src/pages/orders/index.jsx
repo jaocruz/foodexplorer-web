@@ -97,7 +97,7 @@ export function Orders(){
                   {[USER_ROLE.ADMIN].includes(user.role) &&
                     <div className="admin-select">
                       <article className={`order-status ${order.status}`}/>
-                      <select name="status" id="status" onChange={(e) => handleStatus(e, orderId)}>
+                      <select name="status" id="status" onChange={(e) => handleStatus(e, order.id)}>
                         <option value="Pendente">Pendente</option>
                         <option value="Preparando">Preparando</option>
                         <option value="Entregue">Entregue</option>

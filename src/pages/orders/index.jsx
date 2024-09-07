@@ -33,6 +33,18 @@ export function Orders(){
     return format(new Date(dateTimeString), "dd/MM 'às' HH:mm", { locale: ptBR });
   };
 
+  function formatOrderDetails(details){
+    let parsedDetails = details;
+
+    if(typeof details === "string") {
+      parsedDetails = JSON.parse(details)
+    };
+
+    return parsedDetails.map(dish => {
+      return `${dish.quantity} x ${dish.name}`
+    })
+  };
+
   function handleStatus(e, orderId){
     const newStatus = e.target.value;
 
@@ -95,7 +107,9 @@ export function Orders(){
                 </td>
                   
                 <td>{order.id}</td>
-                <td>{order.details}</td>
+
+                <td>{formatOrderDetails(order.details)}</td>
+
                 <td>{formDateTime(order.created_at)}</td>
               </tr>
             ))

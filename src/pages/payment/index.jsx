@@ -23,6 +23,7 @@ export function Payment(){
 
   const [isQRCodeOpen, setIsQRCodeOpen] = useState(false);
   const [isCreditOpen, setIsCreditOpen] = useState(false);
+  const [isAprovedOpen, setIsAprovedOpen] = useState(false);
   const [isPendingModalOpen, setIsPendingModalOpen] = useState(true);
 
   const [creditCard, setCreditCard] = useState("");
@@ -35,47 +36,95 @@ export function Payment(){
 
   useEffect(() => {
     async function loadOrders() {
-      if(orderId) {
-        const response = await api.get(`/orders/${orderId}`)
-      
-        if(response.data && response.data.order) {
-          setOrder(response.data.order);
-          calculateTotal(response.data.order.description || []);
+
+      try {
+        let backendOrder = null;
+        let localStorageOrder = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
+  
+        if(orderId) {
+          const response = await api.get(`/orders/${orderId}`);
+
+          if(response.data && response.data.order) {
+            const dishDetails = typeof response.data.order.details === "string"
+              ? JSON.parse(response.data.order.details)
+              : response.data.order.details;
+  
+            backendOrder = {
+              ...response.data.order,
+              details: dishDetails
+            };
+  
+            setOrder(backendOrder);
+            calculateTotal([{ description: dishDetails }]);
+  
+            if (response.data.order.status === "Preparando") {
+              setIsAprovedOpen(true);
+            }
+          }
+          
+          else {
+            setOrder([]);
+          }
+        }
+        
+        else {
+
+          if (localStorageOrder.length > 0) {
+            console.log("LocalStorage Order:", localStorageOrder);
+            setOrder(localStorageOrder);
+            calculateTotal(localStorageOrder);
+          }
         }
 
-        else {
-          setOrder([]);
+        if (!backendOrder && localStorageOrder.length > 0) {
+          calculateTotal(localStorageOrder);
         }
       }
-
-      else {
-        const savedOrders = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
-        
-        setOrder(savedOrders);
-        calculateTotal(savedOrders);
+      
+      catch (error) {
+        console.error("Error loading orders:", error);
       }
     }
-
+  
     loadOrders();
-  }, [orderId])
-
+  }, [orderId]);
+  
   function calculateTotal(orderList) {
+    if(!Array.isArray(orderList)) {
+      console.error("Invalid orderList format");
+      return;
+    }
+  
     const totalAmount = orderList.reduce((sum, order) => {
+      if(typeof order !== 'object' || !Array.isArray(order.description)) {
+        console.warn("Invalid order format:", order);
+        return sum;
+      }
+  
       return sum + order.description.reduce((orderSum, dish) => {
+        if(typeof dish !== 'object' || !dish.price || !dish.quantity) {
+          console.warn("Invalid dish format:", dish);
+          return orderSum;
+        }
+  
         const price = parseFloat(dish.price.replace(",", "."));
         const quantity = parseFloat(dish.quantity);
-
+  
         if(!isNaN(price) && !isNaN(quantity)) {
           return orderSum + (price * quantity);
         }
         
-        return orderSum;
-      }, 0)
+        else {
+          console.warn("Invalid price or quantity:", dish);
+          return orderSum;
+        }
+
+      }, 0);
     }, 0);
-
-    setTotal(totalAmount)
+  
+    setTotal(totalAmount);
   };
-
+  
   async function handleRemoveOrder(orderId, dishId) {
     await removeFromOrder(orderId, dishId);
 
@@ -85,6 +134,8 @@ export function Payment(){
   };
 
   function handlePaymentMethodSelection(method) {
+    if(isAprovedOpen) return;
+
     if(selectedPayment === method) {
       setIsQRCodeOpen(false);
       setIsCreditOpen(false);
@@ -127,6 +178,8 @@ export function Payment(){
     
     const description = orderData[0].description.map(dish => ({
       name: dish.name,
+      photo: dish.photo,
+      price: dish.price,
       quantity: dish.quantity
     }));
 
@@ -137,6 +190,9 @@ export function Payment(){
     localStorage.removeItem("@foodexplorer:order");
 
     setIsCreditOpen(false);
+    setIsAprovedOpen(true);
+
+    setSelectedPayment(null);
   };
 
   const isOrderDisabled = order && (order.status === "Preparando" || order.status === "Entregue")
@@ -154,16 +210,20 @@ export function Payment(){
         orderId ? (
           <section>
 
-            <div className="pedido">
+            {order && (
+              <div className="pedido">
+                {Array.isArray(order.details) && order.details.map((dish, index) => (
+                  <DishSection key={index}>
+                    <img src={`${dishURL}${dish.photo}`} alt="" />
 
-              {order && (
-                <DishSection>
-                <div className="dish-info">
-                <h2>{order.details}</h2>
-                </div>
-                </DishSection>
-              )}
-            </div>
+                    <div className="dish-info">
+                      <h2>{dish.quantity} x {dish.name}</h2>
+                      <span>R$ {dish.price}</span>
+                    </div>
+                  </DishSection>
+                ))}
+              </div>
+            )}
 
             <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
           </section>
@@ -196,12 +256,12 @@ export function Payment(){
 
       <PaymentModal>
         <div className="payment-method">
-          <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={!isOrderDisabled ? handlePix : undefined}>
+          <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={!isOrderDisabled && !isAprovedOpen ? handlePix : undefined}>
             <PiPixLogo/>
             <h1>PIX</h1>
           </div>
 
-          <div className={`credit ${selectedPayment === "credit" ? "selected" : ""}`} onClick={!isOrderDisabled ? handleCredit : undefined}>
+          <div className={`credit ${selectedPayment === "credit" ? "selected" : ""}`} onClick={!isOrderDisabled && !isAprovedOpen ? handleCredit : undefined}>
             <PiCreditCard/>
             <h1>Crédito</h1>
           </div>
@@ -252,7 +312,7 @@ export function Payment(){
           )}
 
           {
-            order && order.status === "Preparando" && (
+            (order && order.status === "Preparando" || isAprovedOpen) && (
               <div className="aproved-payment">
                 <PiCheckCircle/>
                 <h1>Pagamento aprovado!</h1>

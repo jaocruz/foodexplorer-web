@@ -80,4 +80,50 @@ export const Container = styled.div`
 
     align-items: center;
   }
+
+  @media (max-width: 1024px){
+    width: 21.0rem;
+    height: 29.2rem;
+    padding: 2.4rem;
+
+    svg:first-child{
+      left: 17rem;
+    }
+
+    .main-info{
+      row-gap: 1.2rem;
+
+      display: flex;
+      flex-direction: column;
+      
+      img{
+        width: 8.8rem !important;
+        height: 8.8rem !important;
+      }
+
+      h2{
+        ${({theme}) => theme.FONTS.POPPINS_100medium};
+      }
+
+      p{
+        display: none !important;
+      }
+
+      h3{
+        ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
+      }
+
+      section{
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        
+        button{
+          width: 100%;
+          height: 3.2rem;
+        }
+      }
+    }
+  }
 `;

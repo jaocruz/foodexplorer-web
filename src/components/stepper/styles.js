@@ -12,4 +12,11 @@ export const Container = styled.div`
     color: ${({theme}) => theme.COLORS.LIGHT_100};
     ${({theme}) => theme.FONTS.ROBOTO_BIGbold};
   }
+
+  @media (max-width: 1024px){
+
+    h1{
+      ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
+    }
+  }
 `;

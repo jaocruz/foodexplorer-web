@@ -93,14 +93,14 @@ export function Home(){
     <Header onSearch={handleSearch}/>
 
     <Container>
-      <Banner>
+      {/* <Banner>
         <img src="Banner.png" alt="" />
 
         <div className="banner-text">
           <h1>Sabores inigualáveis</h1>
           <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
         </div>
-      </Banner>
+      </Banner> */}
 
       {
         categories.map(category => (

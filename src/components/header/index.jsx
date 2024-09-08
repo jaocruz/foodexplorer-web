@@ -8,7 +8,7 @@ import { Container, Brand } from "./styles";
 import { Button } from "../button";
 import { Input } from "../input";
 
-import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt  } from "react-icons/pi";
+import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt, PiList } from "react-icons/pi";
 
 import { useEffect, useState } from "react";
 
@@ -48,12 +48,14 @@ export function Header({ onSearch }){
   return (
     <Container>
       <main>
+        <PiList size={32}/>
+
         <Link to="/">
           <Brand>
             <div className="main-brand">
               <PiHexagonFill size={32}/>
               <h1>food explorer</h1>
-            </div>
+            </div> 
 
             {[USER_ROLE.ADMIN].includes(user.role) && <span>admin</span> }
           </Brand>

@@ -43,105 +43,105 @@ export default {
     POPPINS_100medium: css `
       font-family: "Poppins";
       font-weight: 400;
-      font-size: 14px;
+      font-size: 1.4rem;
       line-height: 24px;
     `,
 
     POPPINS_200medium: css `
       font-family: "Poppins";
       font-weight: 400;
-      font-size: 20px;
+      font-size: 2.0rem;
       line-height: 160%;
     `,
 
     POPPINS_300bold: css `
       font-family: "Poppins";
       font-weight: 700;
-      font-size: 24px;
+      font-size: 2.4rem;
       line-height: 140%;
     `,
 
     POPPINS_300regular: css `
       font-family: "Poppins";
       font-weight: 300;
-      font-size: 24px;
+      font-size: 2.4rem;
       line-height: 140%;
     `,
 
     POPPINS_400medium: css `
       font-family: "Poppins";
       font-weight: 400;
-      font-size: 32px;
+      font-size: 3.2rem;
       line-height: 140%;
     `,
 
     POPPINS_500medium: css `
       font-family: "Poppins";
       font-weight: 400;
-      font-size: 40px;
+      font-size: 4.0rem;
       line-height: 140%;
     `,
 
     ROBOTO_SMALLESTregular: css `
       font-family: "Roboto";
       font-weight: 300;
-      font-size: 12px;
+      font-size: 1.2rem;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLERregular: css `
       font-family: "Roboto";
       font-weight: 300;
-      font-size: 14px;
+      font-size: 1.4rem;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLERbold: css `
       font-family: "Roboto";
       font-weight: 700;
-      font-size: 14px;
+      font-size: 1.4rem;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLspaced: css `
       font-family: "Roboto";
       font-weight: 300;
-      font-size: 16px;
+      font-size: 1.6rem;
       line-height: 160%;
     `,
 
     ROBOTO_SMALLregular: css `
       font-family: "Roboto";
       font-weight: 300;
-      font-size: 16px;
+      font-size: 1.6rem;
       line-height: 100%;
     `,
 
     ROBOTO_BIGbold: css `
       font-family: "Roboto";
       font-weight: 700;
-      font-size: 20px;
+      font-size: 2.0rem;
       line-height: 160%;
     `,
 
     ROBOTO_BIGGERbold: css `
       font-family: "Roboto";
       font-weight: 700;
-      font-size: 24px;
+      font-size: 2.4rem;
       line-height: 100%;
     `,
 
     ROBOTO_BIGGESTregular: css `
       font-family: "Roboto";
       font-weight: 400;
-      font-size: 32px;
+      font-size: 3.2rem;
       line-height: 160%;
     `,
 
     ROBOTO_GIANTbold: css `
       font-family: "Roboto";
       font-weight: 700;
-      font-size: 42px;
+      font-size: 4.2rem;
       line-height: 160%;
     `,
   }

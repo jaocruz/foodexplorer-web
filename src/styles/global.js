@@ -9,6 +9,10 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
+  :root{
+    font-size: 62.5%;
+  }
+
   body {
     height: 100vh;
     color: ${({theme}) => theme.COLORS.LIGHT_100};

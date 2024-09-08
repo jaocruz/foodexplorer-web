@@ -5,10 +5,10 @@ export const Container = styled.main`
 `;
 
 export const Banner = styled.div`
-  height: 260px;
+  height: 26rem;
   
-  margin: 172px auto 62px;
-  border-radius: 8px;
+  margin: 17.2rem auto 6.2rem;
+  border-radius: 0.8rem;
   
   position: relative;
 
@@ -19,8 +19,8 @@ export const Banner = styled.div`
 
   > img {
     position: absolute;
-    top: -140px;
-    left: -70px;
+    top: -14rem;
+    left: -7rem;
   }
 
   .banner-text {
@@ -29,8 +29,8 @@ export const Banner = styled.div`
     
     text-align: center;
 
-    gap: 8px;
-    margin: 86px 102px 94px 0;
+    gap: 0.8rem;
+    margin: 8.6rem 10.2rem 9.4rem 0;
 
     h1 {
       ${({theme}) => theme.FONTS.POPPINS_500medium}
@@ -39,6 +39,10 @@ export const Banner = styled.div`
     span {
       ${({theme}) => theme.FONTS.ROBOTO_SMALLregular}
     }
+  }
+
+  @media (max-width: 1024px){
+    
   }
 `;
 

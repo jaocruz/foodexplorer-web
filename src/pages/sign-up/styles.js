@@ -4,14 +4,14 @@ export const Container = styled.main`
   width: 100%;
   height: 100vh;
 
-  gap: 306px;
+  gap: 30.6rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 1024px){
-    gap: 74px;
+    gap: 7.4rem;
     flex-direction: column;
   }
 `;
@@ -22,7 +22,7 @@ export const Brand = styled.div`
 
   margin-top: -4%;
 
-  gap: 19px;
+  gap: 1.9rem;
 
   > svg {
     color: ${({theme}) => theme.COLORS.CAKE_100};
@@ -38,10 +38,10 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
 
-  gap: 32px;
+  gap: 3.2rem;
 
-  padding: 64px;
-  border-radius: 16px;
+  padding: 6.4rem;
+  border-radius: 1.6rem;
   background-color: ${({theme}) => theme.COLORS.DARK_700};
 
   > h1 {
@@ -51,7 +51,7 @@ export const Form = styled.form`
   }
 
   > div {
-    width: 348px;
+    width: 34.8rem;
   }
 
   > a {

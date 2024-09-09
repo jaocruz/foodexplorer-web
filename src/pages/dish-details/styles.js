@@ -5,7 +5,7 @@ export const Container = styled.main`
   > a {
     display: flex;
     align-items: center;
-    margin: 40px 0 42px;
+    margin: 4rem 0 4.2rem;
 
     grid-area: voltar;
 
@@ -13,19 +13,19 @@ export const Container = styled.main`
     color: ${({theme}) => theme.COLORS.LIGHT_300};
 
     svg {
-      width: 32px;
-      height: 32px;
+      width: 3.2rem;
+      height: 3.2rem;
     }
   }
 
   > .dish {
     display: flex;
-    column-gap: 48px;
+    column-gap: 4.8rem;
     align-items: center;
 
     img {
-      width: 390px;
-      height: 390px;
+      width: 39rem;
+      height: 39rem;
       grid-area: img;
     }
 
@@ -35,7 +35,7 @@ export const Container = styled.main`
       display: flex;
       flex-direction: column;
 
-      row-gap: 24px;
+      row-gap: 2.4rem;
 
       > h1 {
         ${({theme}) => theme.FONTS.POPPINS_500medium};
@@ -49,15 +49,62 @@ export const Container = styled.main`
 
       > .ingredients {
         display: flex;
-        gap: 12px;
-        margin-bottom: 24px;
+        gap: 1.2rem;
+        margin-bottom: 2.4rem;
       }
 
       > section {
         display: flex;
         align-items: center;
 
-        gap: 34px;
+        gap: 3.4rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px){
+    padding: 1.6rem 5.6rem;
+
+    > a{
+      font-weight: 400;
+      margin: 3.6rem 0 1.6rem;
+    }
+
+    .dish{
+      display: flex;
+      flex-direction: column;
+
+      row-gap: 1.6rem;
+
+      img{
+        width: 26.4rem;
+        height: 26.4rem;
+      }
+
+      .dish-details{
+        text-align: center;
+        align-items: center;
+
+        > h1{
+          font-size: 2.7rem;
+        }
+
+        > span{
+          font-size: 1.6rem;
+        }
+
+        .ingredients{
+          width: 70dvw;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        section{
+          div h1{
+            font-weight: 500;
+            font-size: 2.2rem;
+          }
+        }
       }
     }
   }

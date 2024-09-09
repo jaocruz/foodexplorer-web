@@ -13,8 +13,7 @@ export const Container = styled.div`
     ${({theme}) => theme.FONTS.ROBOTO_BIGbold};
   }
 
-  @media (max-width: 1024px){
-
+  @media (max-width: 768px){
     h1{
       ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
     }

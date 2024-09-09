@@ -27,8 +27,8 @@ export const Container = styled.header`
     }
   }
 
-  @media (max-width: 1024px){
-    padding: 5.6rem 2.8rem 2.4rem;
+  @media (max-width: 768px){
+    padding: 5.6rem 0 2.4rem;
     height: 11.4rem;
 
     > main {
@@ -94,7 +94,7 @@ export const Brand = styled.div`
     ${({theme}) => theme.FONTS.ROBOTO_SMALLESTregular};
   }
 
-  @media (max-width: 1024px){
+  @media (max-width: 768px){
     display: flex;
 
     gap: 0.8rem;

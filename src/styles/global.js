@@ -68,4 +68,10 @@ export default createGlobalStyle`
   svg {
     color: ${({theme}) => theme.COLORS.LIGHT_100};
   }
+
+  @media (max-width: 768px){
+    main{
+      padding: 0 2.4rem;
+    }
+  }
 `;

@@ -6,6 +6,7 @@ export const Container = styled.main`
 
 export const Banner = styled.div`
   height: 26rem;
+  width: 100%;
   
   margin: 17.2rem auto 6.2rem;
   border-radius: 0.8rem;
@@ -19,8 +20,14 @@ export const Banner = styled.div`
 
   > img {
     position: absolute;
-    top: -14rem;
-    left: -7rem;
+    height: auto;
+    top: 25.5%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+  }
+
+  img:nth-child(2){
+    opacity: 0;
   }
 
   .banner-text {
@@ -41,8 +48,45 @@ export const Banner = styled.div`
     }
   }
 
-  @media (max-width: 1024px){
-    
+  @media (max-width: 768px){
+    width: 100%;
+    height: fit-content;
+
+    margin: 6.8rem 0;
+
+    border-radius: 0.28rem;
+
+    img:first-child{
+      opacity: 0;
+      width: 100%;
+    }
+
+    img:nth-child(2){
+      opacity: 1;
+      
+      height: 14.9rem;
+      top: 36%;
+      left: 18%;
+      transform: translate(-50%, -50%);
+    }
+
+    .banner-text{
+      text-align: left;
+
+      width: 20.2rem;
+      margin: 3.6rem 1rem 2.2rem;
+
+      h1{
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      span{
+        font-size: 1.2rem;
+        font-weight: 200;
+        font-family: "Poppins";
+      }
+    }
   }
 `;
 
@@ -58,13 +102,28 @@ export const Carousel = styled.section`
   > section {
     max-width: 1120px;
     position: relative;
-
   }
 
   .carousel-container {
     display: flex;
     gap: 28px;
     transition: transform 0.5s ease-in-out;
+  }
+
+  @media (max-width: 768px){
+    width: 88dvw;
+
+    .carousel-container{
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+
+    h1{
+      font-size: 1.8rem;
+    }
   }
 `;
 
@@ -120,5 +179,20 @@ export const Gradient = styled.div`
   .visible {
     opacity: 1;
     pointer-events: all;
+  }
+
+  @media (max-width: 768px){
+    width: 101%;
+
+    .left-gradient, .right-gradient{
+      width: 126px;
+      height: 292px;
+
+      pointer-events: none;
+
+      svg{
+        display: none;
+      }
+    }
   }
 `;

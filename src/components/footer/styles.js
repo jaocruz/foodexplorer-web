@@ -41,7 +41,7 @@ export const Container = styled.footer`
     }
   }
 
-  @media (max-width: 1024px){
+  @media (max-width: 768px){
     padding: 0;
 
     main {

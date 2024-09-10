@@ -100,9 +100,17 @@ export const Container = styled.main`
         }
 
         section{
+          width: 100%;
+
           div h1{
             font-weight: 500;
             font-size: 2.2rem;
+          }
+        }
+
+        .admin-button{
+          button{
+            width: 100%;
           }
         }
       }

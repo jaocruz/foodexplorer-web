@@ -108,7 +108,7 @@ export function EditDish(){
     <Container>
       <a onClick={handleBack}><PiCaretLeft/>voltar</a>
 
-      <h1>Adicionar prato</h1>
+      <h1>Editar prato</h1>
 
       <Form>
         <div className="first-row">

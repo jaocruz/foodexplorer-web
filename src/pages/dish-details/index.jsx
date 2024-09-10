@@ -80,7 +80,7 @@ export function DishDetails(){
           }
 
           {[USER_ROLE.ADMIN].includes(user.role) &&
-            <section>
+            <section className="admin-button">
               <Button onClick={handleEdit} title="Editar prato"/>
             </section>
           }

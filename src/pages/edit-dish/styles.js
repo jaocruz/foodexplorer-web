@@ -153,9 +153,14 @@ export const Form = styled.form`
     }
 
     .first-row{
+      div:first-child{
+        section{
+          justify-content: center;
+        }
+      }
+
       option{
-        font-size: 1rem;
-        width: 2rem !important;
+        ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
       }
     }
 

@@ -75,6 +75,7 @@ export const Container = styled.main`
       flex-direction: column;
 
       row-gap: 1.6rem;
+      margin-bottom: 4.8rem;
 
       img{
         width: 26.4rem;

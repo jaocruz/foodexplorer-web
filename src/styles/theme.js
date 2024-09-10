@@ -44,7 +44,7 @@ export default {
       font-family: "Poppins";
       font-weight: 400;
       font-size: 1.4rem;
-      line-height: 24px;
+      line-height: 2.4rem;
     `,
 
     POPPINS_200medium: css `

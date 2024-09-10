@@ -57,36 +57,36 @@ export function DishDetails(){
         data &&
 
         <div className="dish">
-        <img src={dishURL} alt={data.name} />
+          <img src={dishURL} alt={data.name} />
 
-        <div className="dish-details">
-          <h1>{data.name}</h1>
-          <span>{data.description}</span>
+          <div className="dish-details">
+            <h1>{data.name}</h1>
+            <span>{data.description}</span>
 
-          <div className="ingredients">
-            {data.ingredients.map((ingredient) => (
-              <IngredientTag
-                key={ingredient.id}
-                title={ingredient.name}
-              />
-            ))}
+            <div className="ingredients">
+              {data.ingredients.map((ingredient) => (
+                <IngredientTag
+                  key={ingredient.id}
+                  title={ingredient.name}
+                />
+              ))}
+            </div>
+
+            {[USER_ROLE.CUSTOMER].includes(user.role) &&
+              <section>
+                <Stepper />
+                <Button title={`incluir ∙ R$ ${data.price}`}/>
+              </section>
+            }
+
+            {[USER_ROLE.ADMIN].includes(user.role) &&
+              <section className="admin-button">
+                <Button onClick={handleEdit} title="Editar prato"/>
+              </section>
+            }
+
           </div>
-
-          {[USER_ROLE.CUSTOMER].includes(user.role) &&
-            <section>
-              <Stepper />
-              <Button title={`incluir ∙ R$ ${data.price}`}/>
-            </section>
-          }
-
-          {[USER_ROLE.ADMIN].includes(user.role) &&
-            <section className="admin-button">
-              <Button onClick={handleEdit} title="Editar prato"/>
-            </section>
-          }
-
         </div>
-      </div>
       }
     </Container>
 

@@ -25,6 +25,13 @@ export const Container = styled.main`
     ${({theme}) => theme.FONTS.POPPINS_400medium};
     color: ${({theme}) => theme.COLORS.LIGHT_300};
   }
+
+  @media (max-width: 768px){
+    a{
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+  }
 `;
 
 export const Form = styled.form`
@@ -128,5 +135,42 @@ export const Form = styled.form`
   > .fourth-row {
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media (max-width: 768px){
+    width: 88dvw;
+    margin-bottom: 5.3rem;
+
+    .first-row, .second-row{
+      display: flex;
+      flex-direction: column;
+
+      row-gap: 2.4rem;
+    }
+
+    .first-row{
+      div:first-child{
+        section{
+          justify-content: center;
+        }
+      }
+      
+      option{
+        ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
+      }
+    }
+
+    .second-row{
+      .ingredients{
+        padding: 1.6rem 0;
+        flex-wrap: wrap;
+      }
+    }
+
+    .fourth-row{
+      button{
+        width: 100%;
+      }
+    }
   }
 `;

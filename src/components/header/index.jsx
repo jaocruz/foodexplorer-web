@@ -12,7 +12,7 @@ import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt, PiList } from "
 
 import { useEffect, useState } from "react";
 
-export function Header({ onSearch }){
+export function Header({ onSearch, onOpenMenu }){
   const { signOut, user, getOrder } = useAuth();
 
   const [search, setSearch] = useState("");
@@ -43,12 +43,12 @@ export function Header({ onSearch }){
   function handleSignOut() {
     navigate("/")
     signOut();
-  }
+  };
 
   return (
     <Container>
       <main>
-        <PiList size={32}/>
+        <button className="menu-button" onClick={onOpenMenu}><PiList size={32}/></button>
 
         <Link to="/">
           <Brand>

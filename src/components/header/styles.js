@@ -17,6 +17,10 @@ export const Container = styled.header`
     display: flex;
     align-items: center;
 
+    .menu-button{
+      display: none;
+    }
+
     input {
       width: 24.6rem;
     }
@@ -39,7 +43,8 @@ export const Container = styled.header`
 
       justify-content: space-between;
 
-      :first-child{
+      .menu-button{
+        display: block;
         grid-area: menu;
       }
 

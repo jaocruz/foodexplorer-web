@@ -9,6 +9,8 @@ import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import { api } from "../../services/api";
 import { useState, useEffect } from "react";
 
+import { SideMenu } from "../../components/side-menu";
+
 const categories = ["Refeicao", "Sobremesa", "Bebida"];
 
 const CarouselSection = ({ category, dishes, search }) => {
@@ -24,7 +26,6 @@ const CarouselSection = ({ category, dishes, search }) => {
   const totalItems = filteredDishes.length;
   const maxIndex = Math.max(0, totalItems - itemsPerPage);
   const translateXValue = -(currentIndex * (100 / itemsPerPage));
-
 
   const handlePrev = () => {
     setCurrentIndex(prevIndex => Math.max(prevIndex - 1, 0));
@@ -69,6 +70,8 @@ export function Home(){
   const [dishes, setDishes] = useState([]);
   const [search, setSearch] = useState("");
 
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
   useEffect(() => {
     const loadDishes = async() => {
       try {
@@ -90,7 +93,12 @@ export function Home(){
 
   return (
     <>
-    <Header onSearch={handleSearch}/>
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+    
+    <Header onSearch={handleSearch} onOpenMenu={() => setMenuIsOpen(true)}/>
 
     <Container>
       <Banner>

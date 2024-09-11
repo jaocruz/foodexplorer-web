@@ -17,11 +17,15 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { SideMenu } from "../../components/side-menu";
+
 import dishPlaceholder from "/placeholder.png";
 
 export function DishDetails(){
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function handleBack(){
     navigate(-1)
@@ -48,7 +52,12 @@ export function DishDetails(){
 
   return (
     <>
-    <Header />
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+
+    <Header onOpenMenu={() => setMenuIsOpen(true)}/>
 
     <Container>
       <a onClick={handleBack}><PiCaretLeft/>voltar</a>

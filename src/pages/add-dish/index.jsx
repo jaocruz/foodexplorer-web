@@ -11,11 +11,15 @@ import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { IngredientButton } from "../../components/ingredient-button";
 
+import { SideMenu } from "../../components/side-menu";
+
 import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
 
 export function AddDish(){
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function handleAddIngredient(){
     setIngredients(prevState => [...prevState, newIngredient]);
@@ -66,7 +70,7 @@ export function AddDish(){
       console.error('Error adding dish:', error.response?.data || error.message);
       alert("Ocorreu um erro ao cadastrar o prato.");
     }
-}
+  }
 
   const navigate = useNavigate();
 
@@ -76,7 +80,12 @@ export function AddDish(){
   
   return (
     <>
-    <Header/>
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+
+    <Header onOpenMenu={() => setMenuIsOpen(true)}/>
 
     <Container>
       <a onClick={handleBack}><PiCaretLeft/>voltar</a>

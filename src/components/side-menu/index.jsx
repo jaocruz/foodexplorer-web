@@ -39,6 +39,11 @@ export function SideMenu({ menuIsOpen, onCloseMenu }){
             <a href="/new">Novo Prato</a>
           }
 
+          {[USER_ROLE.CUSTOMER].includes(user.role) &&
+            <a href="/favorites">Meus Favoritos</a>
+          }
+
+          <a href="/orders">Histórico de Pedidos</a>
           <a onClick={handleSignOut}>Sair</a>
         </div>
       </div>

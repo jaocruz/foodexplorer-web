@@ -42,4 +42,21 @@ export const Container = styled.main`
       }
     }
   }
+
+  @media (max-width: 768px){
+    padding: 5.6rem 2.6rem;
+
+    >h1{
+      margin-top: 1.2rem;
+    }
+
+    section{
+      width: 80dvw;
+
+      display: flex;
+      flex-direction: column;
+
+      row-gap: 0;
+    }
+  }
 `;

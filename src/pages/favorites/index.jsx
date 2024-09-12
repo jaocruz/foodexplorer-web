@@ -6,8 +6,12 @@ import { Footer } from "../../components/footer"
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 
+import { SideMenu } from "../../components/side-menu";
+
 export function Favorites(){
   const [favorite, setFavorite] = useState([]);
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const dishURL = `${api.defaults.baseURL}/files/`;
 
@@ -33,7 +37,12 @@ export function Favorites(){
 
   return(
     <>
-    <Header/>
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+    
+    <Header onOpenMenu={() => setMenuIsOpen(true)}/>
 
     <Container>
       <h1>Meus favoritos</h1>

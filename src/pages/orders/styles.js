@@ -103,4 +103,76 @@ export const Container = styled.main`
       background-color: ${({theme}) => theme.COLORS.DARK_400};
     }
   }
+
+  @media (max-width: 768px){
+    padding: 5.6rem 2.6rem;
+
+    >h1{
+      margin-top: 1.2rem;
+    }
+
+    table{
+      border: none;
+    }
+
+    thead{
+      display: none;
+    }
+
+    tbody{
+      display: flex;
+      flex-direction: column;
+
+      gap: 2.4rem;
+    }
+
+    tbody tr{
+      display: grid;
+
+      grid-template-areas:
+      "id costumer time"
+      "details details details"
+      "admin admin admin";
+
+      border-radius: 0.8rem;
+      border: 2px solid ${({theme}) => theme.COLORS.DARK_1000};
+    }
+
+    .costumer{
+      grid-area: costumer;
+    }
+
+    .admin{
+      grid-area: admin;
+      padding: 0 1.9rem 2.4rem;
+    }
+
+    td:nth-child(1){
+      div{
+        width: 100%;
+        border-radius: 0.5rem;
+      }
+    }
+
+    td:nth-child(2){
+      grid-area: id;
+    }
+
+    td:nth-child(3){
+      grid-area: details;
+
+      padding-top: 0;
+
+      text-align: justify; 
+    }
+
+    td:nth-child(4){
+      grid-area: time;
+      padding-left: 0;
+    }
+
+    tbody td{
+      border: none;
+    }
+  }
 `;

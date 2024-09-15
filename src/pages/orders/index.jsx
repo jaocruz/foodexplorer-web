@@ -14,9 +14,13 @@ import { ptBR } from "date-fns/locale";
 
 import { useNavigate } from "react-router-dom";
 
+import { SideMenu } from "../../components/side-menu";
+
 export function Orders(){
   const { user } = useAuth();
   const [ordersList, setOrdersList] = useState([]);
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -42,7 +46,7 @@ export function Orders(){
 
     return parsedDetails.map(dish => {
       return `${dish.quantity} x ${dish.name}`
-    })
+    }).join(", ")
   };
 
   function handleStatus(e, orderId){
@@ -67,7 +71,12 @@ export function Orders(){
 
   return(
     <>
-    <Header/>
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+    
+    <Header onOpenMenu={() => setMenuIsOpen(true)}/>
 
     <Container>
       <h1>Histórico de pedidos</h1>
@@ -86,15 +95,18 @@ export function Orders(){
           {
             filteredOrders.map((order) => (
               <tr key={order.id}>
-                <td>
-                  {[USER_ROLE.CUSTOMER].includes(user.role) &&
-                    <section onClick={() => handleShowOrder(order.id)}>
+
+                {[USER_ROLE.CUSTOMER].includes(user.role) &&
+                  <td className="costumer">
+                    <section className="costumer-status" onClick={() => handleShowOrder(order.id)}>
                       <article className={`order-status ${order.status}`}/>
                       {order.status}
                     </section>
-                  }
-                    
-                  {[USER_ROLE.ADMIN].includes(user.role) &&
+                  </td>
+                }
+
+                {[USER_ROLE.ADMIN].includes(user.role) &&
+                  <td className="admin">
                     <div className="admin-select">
                       <article className={`order-status ${order.status}`}/>
                       <select name="status" id="status" onChange={(e) => handleStatus(e, order.id)}>
@@ -103,10 +115,10 @@ export function Orders(){
                         <option value="Entregue">Entregue</option>
                       </select>
                     </div>
-                  }
-                </td>
+                  </td>
+                }
                   
-                <td>{order.id}</td>
+                <td>0000{order.id}</td>
 
                 <td>{formatOrderDetails(order.details)}</td>
 

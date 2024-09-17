@@ -13,10 +13,14 @@ import { useAuth } from "../../hooks/auth";
 
 import { useParams } from "react-router-dom";
 
+import { SideMenu } from "../../components/side-menu";
+
 export function Payment(){
   const { removeFromOrder } = useAuth();
 
   const { orderId } = useParams();
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const [order, setOrder] = useState(null);
   const [total, setTotal] = useState(0);
@@ -31,6 +35,9 @@ export function Payment(){
   const [verifyCode, setVerifyCode] = useState("");
 
   const [selectedPayment, setSelectedPayment] = useState(null);
+
+  const [hideOrder, setHideOrder] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
 
   const dishURL = `${api.defaults.baseURL}/files/`;
 
@@ -200,10 +207,15 @@ export function Payment(){
 
   return(
     <>
-    <Header/>
+    <SideMenu
+      menuIsOpen={menuIsOpen}
+      onCloseMenu={() => setMenuIsOpen(false)}
+    />
+    
+    <Header onOpenMenu={() => setMenuIsOpen(true)}/>
 
-    <Container>
-      <h1>Meu pedido</h1>
+    <Container className={showPayment ? 'show-payment' : ''}>
+      <h1 className="meupedido">Meu pedido</h1>
 
       {
         orderId ? (
@@ -247,13 +259,21 @@ export function Payment(){
             }
 
             <h2 className="total">Total: R$ {total.toFixed(2)}</h2>
+
+            <Button
+              title="Avançar"
+              onClick={() => {
+                setShowPayment(true);
+                setHideOrder(true);
+              }}
+            />
           </section>
         )
       }
 
-      <h1>Pagamento</h1>
+      <h1 className="pagamento">Pagamento</h1>
 
-      <PaymentModal>
+      <PaymentModal showPayment={showPayment}>
         <div className="payment-method">
           <div className={`pix ${selectedPayment === "pix" ? "selected" : ""}`} onClick={!isOrderDisabled && !isAprovedOpen ? handlePix : undefined}>
             <PiPixLogo/>

@@ -5,14 +5,22 @@ export const Container = styled.main`
   grid-template-rows: auto 1fr;
 
   grid-template-areas:
-  "h1 h1"
+  "meupedido pagamento"
   "section payment";
 
-  padding-bottom: 56px;
+  padding-bottom: 5.4rem;
   color: ${({theme}) => theme.COLORS.LIGHT_300};
 
+  .meupedido{
+    grid-area: meupedido;
+  }
+
+  .pagamento{
+    grid-area: pagamento;
+  }
+
   > h1 {
-    margin: 34px 0;
+    margin: 3.4rem 0;
     ${({theme}) => theme.FONTS.POPPINS_400medium};
   }
 
@@ -25,8 +33,8 @@ export const Container = styled.main`
 
     grid-template-rows: 1fr auto;
 
-    width: 444px;
-    max-height: 462px;
+    width: 44.4rem;
+    max-height: 46.2rem;
 
     grid-area: section;
 
@@ -35,7 +43,7 @@ export const Container = styled.main`
       overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 6px;
+      width: 0.6rem;
     }
 
     &::-webkit-scrollbar-track {
@@ -44,7 +52,7 @@ export const Container = styled.main`
 
     &::-webkit-scrollbar-thumb {
       background: ${({theme}) => theme.COLORS.DARK_800};
-      border-radius: 5px;
+      border-radius: 0.5rem;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -59,23 +67,81 @@ export const Container = styled.main`
 
     .total {
       grid-area: total;
-      padding-top: 8px;
+      padding-top: 0.8rem;
+    }
+  }
+
+  @media (min-width: 769px){
+    section{
+      button{
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 768px){
+    display: flex;
+    flex-direction: column;
+    padding: 5.6rem 2.6rem;
+    
+    > section{
+      width: 100%;
+      max-height: 58dvh;
+
+      row-gap: 3.8rem;
+
+      grid-template-areas:
+      "pedido" "total" "button";
+
+      button{
+        grid-area: button;
+      }
+    }
+    
+    .pedido{
+      div{
+        width: fit-content;
+      }
+    }
+
+    .pagamento{
+      display: none;
+    }
+
+    &.show-payment .pagamento{
+      display: block;
+    }
+
+    .meupedido{
+      display: block;
+    }
+
+    &.show-payment .meupedido{
+      display: none;
+    }
+
+    &.show-payment section{
+      display: none;
+    }
+
+    > h1{
+      margin-top: 1.2rem;
     }
   }
 `;
 
 export const DishSection = styled.div`
-  width: 403px;
+  width: 40.3rem;
   display: flex;
 
-  padding: 16px 0;
+  padding: 1.6rem 0;
 
-  gap: 12px;
+  gap: 1.2rem;
   align-items: center;
 
   > img {
-    width: 72px;
-    height: 72px;
+    width: 7.2rem;
+    height: 7.2rem;
   }
 
   > .dish-info {
@@ -88,7 +154,7 @@ export const DishSection = styled.div`
       
     height: 52px;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 1rem;
 
     h2 {
       white-space: nowrap;
@@ -110,10 +176,25 @@ export const DishSection = styled.div`
       ${({theme}) => theme.FONTS.ROBOTO_SMALLESTregular};
     }
   }
+
+  @media (max-width: 768px){
+    .dish-info{
+      display: grid;
+
+      grid-template-areas:
+      "title title"
+      "price delete";
+
+      grid-template-columns: auto 1fr;
+
+      justify-items: start;
+      width: fit-content;
+    }
+  }
 `;
 
 export const PaymentModal = styled.div`
-  width: 530px;
+  width: 53rem;
   grid-area: payment;
 
   > .payment-method {
@@ -136,16 +217,16 @@ export const PaymentModal = styled.div`
       align-items: center;
       justify-content: center;
 
-      height: 81px;
-      padding: 12px 14px;
+      height: 8.1rem;
+      padding: 1.2rem 1.4rem;
 
-      gap: 8px;
+      gap: 0.8rem;
 
       transition: 0.1s ease-in-out;
 
       svg {
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
       }
 
       h1 {
@@ -154,13 +235,13 @@ export const PaymentModal = styled.div`
     }
 
     .pix {
-      border-top-left-radius: 8px;
+      border-top-left-radius: 0.8rem;
       border-top: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
       border-left: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
     }
 
     .credit {
-      border-top-right-radius: 8px;
+      border-top-right-radius: 0.8rem;
       border-top: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
       border-left: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
       border-right: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
@@ -169,16 +250,16 @@ export const PaymentModal = styled.div`
 
   > .payment-info {
     display: flex;
-    padding: 48px;
+    padding: 4.8rem;
     justify-content: center;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
     border: solid 1px ${({theme}) => theme.COLORS.LIGHT_600};
   }
 
   form {
-    width: 348px;
-    row-gap: 38px;
+    width: 34.8rem;
+    row-gap: 3.8rem;
 
     display: flex;
     flex-direction: column;
@@ -190,7 +271,7 @@ export const PaymentModal = styled.div`
 
     .second-row {
       display: flex;
-      column-gap: 16px;
+      column-gap: 1.6rem;
     }
   }
 
@@ -198,18 +279,51 @@ export const PaymentModal = styled.div`
     display: flex;
     flex-direction: column;
 
-    row-gap: 36px;
+    row-gap: 3.6rem;
     align-items: center;
 
     svg {
-      width: 128px;
-      height: 128px;
+      width: 12.8rem;
+      height: 12.8rem;
       color: ${({theme}) => theme.COLORS.LIGHT_600};
     }
 
     h1 {
       ${({theme}) => theme.FONTS.ROBOTO_BIGGERbold}
       color: ${({theme}) => theme.COLORS.LIGHT_600};
+    }
+  }
+
+  @media (max-width: 768px){
+    display: ${({ showPayment }) => (showPayment ? 'grid' : 'none')};
+    width: 37.5rem;
+
+    .payment-info{
+      width: 37.5rem;
+      padding: 5.6rem 2.7rem;
+
+      section {
+        display: block;
+      }
+
+      img{
+        width: 18rem;
+        height: 18rem;
+      }
+    }
+
+    .checkout-payment, .aproved-payment, .delivered-order{
+      row-gap: 2.4rem;
+      padding: 6rem 0;
+
+      svg{
+        width: 9.6rem;
+        height: 9.6rem;
+      }
+
+      h1{
+        ${({theme}) => theme.FONTS.ROBOTO_BIGbold}
+      }
     }
   }
 `;

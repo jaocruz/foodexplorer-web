@@ -78,7 +78,7 @@ export function Header({ onSearch, onOpenMenu }){
           </Link>
         }
 
-        {[USER_ROLE.CUSTOMER].includes(user.role) &&
+        {[USER_ROLE.CUSTOMER].includes(user.role) && 
           <Link to="/payment">
             <Button icon={PiReceipt} title={`Pedidos (${orderCount})`} />
           </Link>

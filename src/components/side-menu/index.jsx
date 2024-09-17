@@ -34,6 +34,7 @@ export function SideMenu({ menuIsOpen, onCloseMenu }){
         />
 
         <div className="menu-pages">
+          <a href="/">Home</a>
           
           {[USER_ROLE.ADMIN].includes(user.role) &&
             <a href="/new">Novo Prato</a>

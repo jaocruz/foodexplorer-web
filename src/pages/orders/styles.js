@@ -169,6 +169,7 @@ export const Container = styled.main`
     td:nth-child(4){
       grid-area: time;
       padding-left: 0;
+      white-space: nowrap;
     }
 
     tbody td{

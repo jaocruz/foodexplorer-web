@@ -11,7 +11,11 @@ import { useState, useEffect } from "react";
 
 import { SideMenu } from "../../components/side-menu";
 
-const categories = ["Refeicao", "Sobremesa", "Bebida"];
+const categories = {
+  "Refeicao": "Refeições",
+  "Sobremesa": "Sobremesas",
+  "Bebida": "Bebidas"
+}
 
 const CarouselSection = ({ category, dishes, search }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,7 +41,7 @@ const CarouselSection = ({ category, dishes, search }) => {
 
   return(
     <Carousel>
-      <h1>{category}</h1>
+      <h1>{categories[category]}</h1>
 
       <section>
         <Gradient>
@@ -113,7 +117,7 @@ export function Home(){
       </Banner>
 
       {
-        categories.map(category => (
+        Object.keys(categories).map(category => (
           <CarouselSection
             key={category}
             category={category}

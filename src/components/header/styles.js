@@ -17,6 +17,10 @@ export const Container = styled.header`
     display: flex;
     align-items: center;
 
+    .mobile-counter{
+      display: none;
+    }
+
     .menu-button{
       display: none;
     }
@@ -51,11 +55,32 @@ export const Container = styled.header`
       a:nth-child(6){
         grid-area: button;
         width: fit-content;
+
+        position: relative;
+      }
+
+      .mobile-counter{
+        width: 2rem;
+        height: 2rem;
+
+        top: -0.2rem;
+        right: -0.6rem;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        border-radius: 99rem;
+
+        ${({theme}) => theme.FONTS.POPPINS_100medium}
+        background-color: ${({theme}) => theme.COLORS.TOMATO_100};
       }
 
       button{
-        background: none;
         padding: 0;
+        background: none;
 
         h1 {
           display: none;

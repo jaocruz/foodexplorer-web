@@ -80,6 +80,7 @@ export function Header({ onSearch, onOpenMenu }){
 
         {[USER_ROLE.CUSTOMER].includes(user.role) && 
           <Link to="/payment">
+            <div className="mobile-counter">{orderCount}</div>
             <Button icon={PiReceipt} title={`Pedidos (${orderCount})`} />
           </Link>
         }

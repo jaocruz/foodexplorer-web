@@ -22,18 +22,25 @@ import { SideMenu } from "../../components/side-menu";
 import dishPlaceholder from "/placeholder.png";
 
 export function DishDetails(){
-  const { user } = useAuth();
+  const { user, addToOrder } = useAuth();
+
   const navigate = useNavigate();
+
+  const [quantity, setQuantity] = useState(1);
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function handleBack(){
     navigate(-1)
-  }
+  };
 
   function handleEdit(){
     navigate(`/edit/${data.id}`)
-  }
+  };
+
+  function handleAddOrder(){
+    addToOrder(data.id, quantity)
+  };
 
   const [data, setData] = useState("");
 
@@ -83,8 +90,11 @@ export function DishDetails(){
 
             {[USER_ROLE.CUSTOMER].includes(user.role) &&
               <section>
-                <Stepper />
-                <Button title={`incluir ∙ R$ ${data.price}`}/>
+                <Stepper onChange={setQuantity}/>
+                <Button
+                  title={`incluir ∙ R$ ${data.price}`}
+                  onClick={handleAddOrder}
+                />
               </section>
             }
 

@@ -7,17 +7,25 @@ import { PiX, PiMagnifyingGlass } from "react-icons/pi";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
+import { useState } from "react";
 
 import { USER_ROLE } from "../../utils/user-roles";
 
-export function SideMenu({ menuIsOpen, onCloseMenu }){
+export function SideMenu({ menuIsOpen, onCloseMenu, onSearch }){
   const { user, signOut } = useAuth();
 
   const navigate = useNavigate();
+  
+  const [search, setSearch] = useState("");
 
   function handleSignOut() {
     navigate("/")
     signOut();
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    onSearch(e.target.value)
   };
 
   return(
@@ -31,6 +39,8 @@ export function SideMenu({ menuIsOpen, onCloseMenu }){
         <Input
           icon={PiMagnifyingGlass}
           placeholder="Busque por pratos ou ingredientes"
+          value={search}
+          onChange={handleSearch}
         />
 
         <div className="menu-pages">

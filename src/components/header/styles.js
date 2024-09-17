@@ -23,6 +23,7 @@ export const Container = styled.header`
 
     .menu-button{
       display: none;
+      z-index: 1;
     }
 
     input {

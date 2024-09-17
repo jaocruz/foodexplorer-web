@@ -36,7 +36,6 @@ export const Container = styled.main`
         display: flex;
         
         column-gap: 8px;
-        cursor: pointer;
         align-items: center;
       }
 
@@ -57,6 +56,10 @@ export const Container = styled.main`
       .Entregue {
         background-color: ${({theme}) => theme.COLORS.MINT};
       }
+    }
+
+    td:last-child{
+      white-space: nowrap;
     }
 
     .admin-select {

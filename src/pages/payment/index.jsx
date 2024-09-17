@@ -76,7 +76,6 @@ export function Payment(){
         
         else {
           if (localStorageOrder.length > 0) {
-            console.log("LocalStorage Order:", localStorageOrder);
             setOrder(localStorageOrder);
             calculateTotal(localStorageOrder);
           }

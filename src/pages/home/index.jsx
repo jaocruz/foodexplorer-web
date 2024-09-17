@@ -100,6 +100,7 @@ export function Home(){
     <SideMenu
       menuIsOpen={menuIsOpen}
       onCloseMenu={() => setMenuIsOpen(false)}
+      onSearch={handleSearch}
     />
     
     <Header onSearch={handleSearch} onOpenMenu={() => setMenuIsOpen(true)}/>

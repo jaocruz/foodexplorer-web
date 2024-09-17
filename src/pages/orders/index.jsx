@@ -61,9 +61,6 @@ export function Orders(){
   };
 
   async function handleShowOrder(orderId){
-    const order = await api.get(`/orders/${orderId}`);
-    console.log(order.data);
-
     navigate(`/payment/${orderId}`)
   };
 
@@ -97,8 +94,8 @@ export function Orders(){
               <tr key={order.id}>
 
                 {[USER_ROLE.CUSTOMER].includes(user.role) &&
-                  <td className="costumer">
-                    <section className="costumer-status" onClick={() => handleShowOrder(order.id)}>
+                  <td className="costumer" onClick={() => handleShowOrder(order.id)}>
+                    <section className="costumer-status">
                       <article className={`order-status ${order.status}`}/>
                       {order.status}
                     </section>
@@ -109,7 +106,7 @@ export function Orders(){
                   <td className="admin">
                     <div className="admin-select">
                       <article className={`order-status ${order.status}`}/>
-                      <select name="status" id="status" onChange={(e) => handleStatus(e, order.id)}>
+                      <select name="status" id="status" value={order.status} onChange={(e) => handleStatus(e, order.id)}>
                         <option value="Pendente">Pendente</option>
                         <option value="Preparando">Preparando</option>
                         <option value="Entregue">Entregue</option>

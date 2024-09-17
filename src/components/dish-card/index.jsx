@@ -1,16 +1,16 @@
-import { useAuth } from "../../hooks/auth";
-import { USER_ROLE } from "../../utils/user-roles";
-
 import { Container } from "./styles";
-
-import { PiHeartStraight, PiPencilSimpleLight, PiHeartStraightFill } from "react-icons/pi";
 
 import { Button } from "../button";
 import { Stepper } from "../stepper";
 
 import dishPlaceholder from "/placeholder.png";
 
+import { PiHeartStraight, PiPencilSimpleLight, PiHeartStraightFill } from "react-icons/pi";
+
 import { api } from "../../services/api.js";
+
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/user-roles";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,14 +18,38 @@ import { useNavigate } from "react-router-dom";
 export function DishCard({data}){
   const { user, addToOrder } = useAuth();
 
+  const [quantity, setQuantity] = useState(1);
+
   const [favoriteId, setFavoriteId] = useState(null)
   const [isFavorited, setIsFavorited] = useState(false);
-
-  const [quantity, setQuantity] = useState(1);
 
   const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
   const navigate = useNavigate();
+
+  async function addFavorite() {
+    await api.post(`/favorites`, {dish_id: data.id});
+    setIsFavorited(true);
+  };
+
+  async function removeFavorite() {
+    if(favoriteId) {
+      await api.delete(`/favorites/${favoriteId}`);
+      setIsFavorited(false);
+    }
+  };
+
+  function handleDetails(){
+    navigate(`/details/${data.id}`)
+  };
+
+  function handleEdit(){
+    navigate(`/edit/${data.id}`)
+  };
+
+  function handleAddOrder(){
+    addToOrder(data.id, quantity)
+  };
 
   useEffect(() => {
     async function handleFavorites() {
@@ -40,53 +64,6 @@ export function DishCard({data}){
 
     handleFavorites();
   }, [data.id]);
-
-  async function addFavorite() {
-    await api.post(`/favorites`, {dish_id: data.id});
-    setIsFavorited(true);
-  }
-
-  async function removeFavorite() {
-    if(favoriteId) {
-      await api.delete(`/favorites/${favoriteId}`);
-      setIsFavorited(false);
-    }
-  }
-
-  function handleDetails(){
-    navigate(`/details/${data.id}`)
-  };
-
-  function handleEdit(){
-    navigate(`/edit/${data.id}`)
-  };
-
-  //   const existingOrder = JSON.parse(localStorage.getItem("orders")) || [];
-
-  //   const newOrder = {
-  //     id: data.id,
-  //     name: data.name,
-  //     quantity: quantity,
-  //     price: data.price,
-  //     photo: data.photo
-  //   };
-
-  //   const orderIndex = existingOrder.findIndex(order => order.id === data.id);
-
-  //   if(orderIndex > -1) {
-  //     existingOrder[orderIndex] = newOrder;
-  //   }
-
-  //   else {
-  //     existingOrder.push(newOrder);
-  //   }
-
-  //   localStorage.setItem("orders", JSON.stringify(existingOrder));
-  // };
-
-  function handleAddOrder(){
-    addToOrder(data.id, quantity)
-  }
 
   return (
     <Container>

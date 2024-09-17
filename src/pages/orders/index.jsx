@@ -1,37 +1,30 @@
 import { Container } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
 
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/user-roles";
 
 import { api } from "../../services/api";
+
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-import { useNavigate } from "react-router-dom";
-
-import { SideMenu } from "../../components/side-menu";
-
 export function Orders(){
   const { user } = useAuth();
+
   const [ordersList, setOrdersList] = useState([]);
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  const filteredOrders = user.role === USER_ROLE.CUSTOMER ? ordersList.filter(order => order.user_id === user.id) : ordersList;
+
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function loadOrders() {
-      const response = await api.get("/orders");
-      setOrdersList(response.data);
-    }
-
-    loadOrders();
-  }, []);
 
   function formDateTime(dateTimeString){
     return format(new Date(dateTimeString), "dd/MM 'às' HH:mm", { locale: ptBR });
@@ -64,8 +57,15 @@ export function Orders(){
     navigate(`/payment/${orderId}`)
   };
 
-  const filteredOrders = user.role === USER_ROLE.CUSTOMER ? ordersList.filter(order => order.user_id === user.id) : ordersList;
+  useEffect(() => {
+    async function loadOrders() {
+      const response = await api.get("/orders");
+      setOrdersList(response.data);
+    }
 
+    loadOrders();
+  }, []);
+  
   return(
     <>
     <SideMenu

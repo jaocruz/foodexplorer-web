@@ -92,32 +92,33 @@ export const Banner = styled.div`
 
 export const Carousel = styled.section`
   overflow: hidden;
-  margin-bottom: 48px;
+  margin-bottom: 4.8rem;
 
   > h1 {
-    margin-bottom: 24px;
+    margin-bottom: 2.4rem;
     ${({theme}) => theme.FONTS.POPPINS_400medium}
   }
 
   > section {
-    max-width: 1120px;
+    max-width: 112rem;
     position: relative;
   }
 
   .carousel-container {
     display: flex;
-    gap: 28px;
+    gap: 2.8rem;
     transition: transform 0.5s ease-in-out;
   }
 
   @media (max-width: 768px){
     width: 88dvw;
+    margin-bottom: 2.4rem;
 
     .carousel-container{
       overflow-x: scroll;
 
       &::-webkit-scrollbar {
-        width: 0px;
+        display: none;
       }
     }
 
@@ -129,7 +130,7 @@ export const Carousel = styled.section`
 
 export const Gradient = styled.div`
   width: 100%;
-  height: 464px;
+  height: 46.4rem;
 
   pointer-events: none;
 
@@ -141,15 +142,15 @@ export const Gradient = styled.div`
   justify-content: space-between;
 
   .left-gradient, .right-gradient {
-    width: 276px;
-    height: 462px;
+    width: 27.6rem;
+    height: 46.2rem;
 
     z-index: 1;
 
     display: flex;
 
     svg {
-      width: 40px;
+      width: 4rem;
       height: 100%;
 
       pointer-events: all;
@@ -185,8 +186,8 @@ export const Gradient = styled.div`
     width: 101%;
 
     .left-gradient, .right-gradient{
-      width: 126px;
-      height: 292px;
+      width: 12.6rem;
+      height: 29.2rem;
 
       pointer-events: none;
 

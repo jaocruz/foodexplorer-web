@@ -1,12 +1,11 @@
 import { Container } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
 
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-
-import { SideMenu } from "../../components/side-menu";
 
 export function Favorites(){
   const [favorite, setFavorite] = useState([]);
@@ -18,7 +17,7 @@ export function Favorites(){
   async function handleDelete(id){
     await api.delete(`/favorites/${id}`)
     setFavorite(favorite.filter(favorite => favorite.id !== id));
-  }
+  };
 
   useEffect(() => {
     async function loadFavorites() {

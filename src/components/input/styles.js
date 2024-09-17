@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 8px;
+  gap: 0.8rem;
   width: 100%;
 
   label {
@@ -18,9 +18,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
 
-    gap: 14px;
-    padding: 0 14px;
-    border-radius: 5px;
+    gap: 1.4rem;
+    padding: 0 1.4rem;
+    border-radius: 0.5rem;
 
     ${({theme}) => theme.FONTS.ROBOTO_SMALLregular};
     background-color: ${({theme}) => theme.COLORS.DARK_900};
@@ -40,7 +40,7 @@ export const Container = styled.div`
 
   input {
     width: 100%;
-    height: 48px;
+    height: 4.8rem;
 
     border: none;
 
@@ -65,16 +65,16 @@ export const Container = styled.div`
   }
 
   select {
-    height: 48px;
+    height: 4.8rem;
   }
 
   div {
-    height: 48px;
+    height: 4.8rem;
   }
 
   textarea {
     resize: none;
-    height: 172px;
-    padding-top: 16px;
+    height: 17.2rem;
+    padding-top: 1.6rem;
   }
 `;

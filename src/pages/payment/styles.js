@@ -152,7 +152,7 @@ export const DishSection = styled.div`
     "title price"
     "delete .";
       
-    height: 52px;
+    height: 5.2rem;
     align-items: center;
     column-gap: 1rem;
 

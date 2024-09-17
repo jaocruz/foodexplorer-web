@@ -10,7 +10,7 @@ export const Container = styled.main`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 1024px){
+  @media (max-width: 768px){
     gap: 7.4rem;
     flex-direction: column;
   }
@@ -60,7 +60,7 @@ export const Form = styled.form`
     color: ${({theme}) => theme.COLORS.LIGHT_100};
   }
 
-  @media (max-width: 1024px){
+  @media (max-width: 768px){
     height: 41.6rem;
     padding: 0;
     

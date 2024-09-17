@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
+  max-height: 4.8rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  max-height: 48px;
+  border-radius: 0.5rem;
+  padding: 1.2rem 2.4rem;
 
-  border-radius: 5px;
-  padding: 12px 24px;
-
-  gap: 8px;
+  gap: 0.8rem;
   flex-shrink: 0;
 
   white-space: nowrap;

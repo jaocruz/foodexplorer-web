@@ -1,6 +1,8 @@
-import { useEffect, useRef } from "react";
 import { Container } from "./styles";
+
 import { PiPlus, PiX } from "react-icons/pi";
+
+import { useEffect, useRef } from "react";
 
 export function IngredientButton({isNew = false, value, onClick, ...rest}) {
   const inputRef = useRef(null);
@@ -20,6 +22,7 @@ export function IngredientButton({isNew = false, value, onClick, ...rest}) {
         ref={inputRef}
         {...rest} 
       />
+      
       <button type="button" onClick={onClick}>
         { isNew ? <PiPlus /> : <PiX /> }
       </button>

@@ -1,40 +1,42 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-import { api } from "../../services/api";
-
 import { Container, Form } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
+
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { IngredientButton } from "../../components/ingredient-button";
 
-import { SideMenu } from "../../components/side-menu";
-
 import { PiCaretLeft, PiUploadSimple } from "react-icons/pi";
+
+import { api } from "../../services/api";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function AddDish(){
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   function handleAddIngredient(){
     setIngredients(prevState => [...prevState, newIngredient]);
     setNewIngredient("");
-  }
+  };
 
   function handleRemoveIngredient(deleted){
     setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
-  }
-
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState(null);
+  };
 
   async function handleNewDish() {
     if (!name || !category || !price || !description || ingredients.length === 0) {
@@ -70,13 +72,11 @@ export function AddDish(){
       console.error('Error adding dish:', error.response?.data || error.message);
       alert("Ocorreu um erro ao cadastrar o prato.");
     }
-  }
-
-  const navigate = useNavigate();
+  };
 
   function handleBack(){
     navigate(-1)
-  }
+  };
   
   return (
     <>

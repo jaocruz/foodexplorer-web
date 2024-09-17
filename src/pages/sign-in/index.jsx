@@ -1,7 +1,3 @@
-import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/auth";
-import { useState } from "react";
-
 import { Container, Brand, Form } from "./styles";
 
 import { Input } from "../../components/input";
@@ -9,15 +5,20 @@ import { Button } from "../../components/button";
 
 import { PiHexagonFill } from "react-icons/pi";
 
+import { useAuth } from "../../hooks/auth";
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 export function SignIn(){
+  const { signIn } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useAuth();
-
   function handleSignIn() {
     signIn({ email, password });
-  }
+  };
 
   return (
     <Container>

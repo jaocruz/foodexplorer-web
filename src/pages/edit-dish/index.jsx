@@ -1,7 +1,9 @@
 import { Container, Form } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
+
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { IngredientButton } from "../../components/ingredient-button";
@@ -13,63 +15,36 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { SideMenu } from "../../components/side-menu";
-
 export function EditDish(){
-  const [data, setData] = useState([]);
-  
   const params = useParams();
 
-  const navigate = useNavigate();
+  const [data, setData] = useState([]);
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-
-  function handleBack(){
-    navigate(-1)
-  }
 
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
-  useEffect(() => {
-    api.get("/dishs")
-    .then(response => {
-      const ingredientsList = response.data[0]?.ingredients || [];
-      const ingredientNames = ingredientsList.map(ingredient => ingredient.name)
-      setIngredients(ingredientNames);
-    })
-    .catch(error => console.log("Erro ao buscar ingredientes: ", error))
-  }, [])
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+
+  const navigate = useNavigate();
+
+  function handleBack(){
+    navigate(-1)
+  };
 
   function handleAddIngredient(){
     setIngredients(prevState => [...prevState, newIngredient]);
     setNewIngredient("");
-  }
+  };
 
   function handleRemoveIngredient(deleted){
     setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
-  }
-
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState(null);
-
-  useEffect(() => {
-    async function getDishInformations() {
-      const response = await api.get(`/dishs/${params.id}`)
-      setData(response.data);
-      setName(response.data.name);
-      setCategory(response.data.category);
-      setPrice(response.data.price);
-      setDescription(response.data.description);
-      setPhoto(response.data.photo);
-      setIngredients(response.data.ingredients.map(ingredient => ingredient.name));
-    }
-
-    getDishInformations();
-  }, [])
+  };
 
   async function handleEditDish() {
     try {
@@ -92,7 +67,7 @@ export function EditDish(){
       console.error('Error updating dish:', error.response?.data || error.message);
       alert("Ocorreu um erro ao atualizar o prato.");
     }
-  }
+  };
 
   async function handleDeleteDish() {
     const confirmDelete = window.confirm("Você realmente deseja excluir esse prato?")
@@ -103,7 +78,32 @@ export function EditDish(){
       alert("Prato excluido com sucesso");
       navigate("/");
     }
-  }
+  };
+
+  useEffect(() => {
+    api.get("/dishs")
+    .then(response => {
+      const ingredientsList = response.data[0]?.ingredients || [];
+      const ingredientNames = ingredientsList.map(ingredient => ingredient.name)
+      setIngredients(ingredientNames);
+    })
+    .catch(error => console.log("Erro ao buscar ingredientes: ", error))
+  }, []);
+
+  useEffect(() => {
+    async function getDishInformations() {
+      const response = await api.get(`/dishs/${params.id}`)
+      setData(response.data);
+      setName(response.data.name);
+      setCategory(response.data.category);
+      setPrice(response.data.price);
+      setDescription(response.data.description);
+      setPhoto(response.data.photo);
+      setIngredients(response.data.ingredients.map(ingredient => ingredient.name));
+    }
+
+    getDishInformations();
+  }, []);
 
   return (
     <>

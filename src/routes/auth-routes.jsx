@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { SignIn } from "../pages/sign-in"
-import { SignUp } from "../pages/sign-up"
+import { SignIn } from "../pages/sign-in";
+import { SignUp } from "../pages/sign-up";
 
 export function AuthRoutes(){
   const user = localStorage.getItem("@foodexplorer:user");

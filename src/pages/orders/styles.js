@@ -3,20 +3,20 @@ import styled from "styled-components";
 export const Container = styled.main`
 
   > h1 {
-    margin: 34px 0;
+    margin: 3.4rem 0;
     ${({theme}) => theme.FONTS.POPPINS_400medium};
   }
 
   > table {
     width: 100%;
     text-align: left;
-    border-radius: 11px;
+    border-radius: 1.1rem;
     overflow: hidden;
     border-spacing: 0;
     border: 2px solid ${({theme}) => theme.COLORS.DARK_1000};
 
     th {
-      padding: 21px 24px;
+      padding: 2.1rem 2.4rem;
 
       color: ${({theme}) => theme.COLORS.LIGHT_300};
       ${({theme}) => theme.FONTS.ROBOTO_SMALLERbold};
@@ -25,7 +25,7 @@ export const Container = styled.main`
     }
 
     td {
-      padding: 16px 24px;
+      padding: 1.6rem 2.4rem;
 
       color: ${({theme}) => theme.COLORS.LIGHT_400};
       ${({theme}) => theme.FONTS.ROBOTO_SMALLERregular};
@@ -34,14 +34,15 @@ export const Container = styled.main`
 
       section {
         display: flex;
+        cursor: pointer;
         
-        column-gap: 8px;
+        column-gap: 0.8rem;
         align-items: center;
       }
 
       .order-status {
-        width: 8px;
-        height: 8px;
+        width: 0.8rem;
+        height: 0.8rem;
         border-radius: 50%;
       }
 
@@ -65,34 +66,34 @@ export const Container = styled.main`
     .admin-select {
       display: flex;
       align-items: center;
-      column-gap: 8px;
+      column-gap: 0.8rem;
     }
 
     th:first-child {
-      border-top-left-radius: 8px;
+      border-top-left-radius: 0.8rem;
     }
 
     th:last-child {
-      border-top-right-radius: 8px;
+      border-top-right-radius: 0.8rem;
     }
 
     tr:last-child td:first-child {
-      border-bottom-left-radius: 8px;
+      border-bottom-left-radius: 0.8rem;
     }
 
     tr:last-child td:last-child {
-      border-bottom-right-radius: 8px;
+      border-bottom-right-radius: 0.8rem;
     }
 
     div {
-      width: 175px;
-      padding: 0 16px;
+      width: 17.5rem;
+      padding: 0 1.6rem;
       background-color: ${({theme}) => theme.COLORS.DARK_900};
     }
 
     select {
       width: 100%;
-      height: 48px;
+      height: 4.8rem;
 
       border: none;
       outline: none;

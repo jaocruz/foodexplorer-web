@@ -1,16 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Container, Brand } from "./styles";
+
+import { Input } from "../input";
+import { Button } from "../button";
+
+import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt, PiList } from "react-icons/pi";
 
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/user-roles";
 
-import { Container, Brand } from "./styles";
-
-import { Button } from "../button";
-import { Input } from "../input";
-
-import { PiSignOut, PiHexagonFill, PiMagnifyingGlass, PiReceipt, PiList } from "react-icons/pi";
-
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Header({ onSearch, onOpenMenu }){
   const { signOut, user, getOrder } = useAuth();
@@ -19,6 +18,16 @@ export function Header({ onSearch, onOpenMenu }){
   const [orderCount, setOrderCount] = useState(0);
 
   const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    onSearch(e.target.value)
+  };
+
+  function handleSignOut() {
+    navigate("/")
+    signOut();
+  };
 
   useEffect(() => {
     const updateOrderCount = () => {
@@ -34,16 +43,6 @@ export function Header({ onSearch, onOpenMenu }){
 
     updateOrderCount();
   }, [getOrder]);
-
-  const handleSearch = (e) => {
-    setSearch(e.target.value)
-    onSearch(e.target.value)
-  };
-
-  function handleSignOut() {
-    navigate("/")
-    signOut();
-  };
 
   return (
     <Container>

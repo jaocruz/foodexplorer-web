@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { api } from "../../services/api";
-
 import { Container, Brand, Form } from "./styles";
 
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 
 import { PiHexagonFill } from "react-icons/pi";
+
+import { api } from "../../services/api";
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SignUp(){
   const [name, setName] = useState("");
@@ -38,7 +38,7 @@ export function SignUp(){
         alert("Cadastro não realizado, tente novamente.")
       }
     })
-  }
+  };
 
   return (
     <Container>

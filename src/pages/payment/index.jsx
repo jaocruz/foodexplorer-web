@@ -1,19 +1,19 @@
 import { Container, DishSection, PaymentModal } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
-import { Input } from "../../components/input"
-import { Button } from "../../components/button"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
+
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
 
 import { PiPixLogo, PiCreditCard, PiReceipt, PiClock, PiCheckCircle, PiForkKnife } from "react-icons/pi";
 
-import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import { SideMenu } from "../../components/side-menu";
 
 export function Payment(){
   const { removeFromOrder } = useAuth();
@@ -41,58 +41,9 @@ export function Payment(){
 
   const dishURL = `${api.defaults.baseURL}/files/`;
 
-  useEffect(() => {
-    async function loadOrders() {
+  const isOrderDisabled = order && (order.status === "Preparando" || order.status === "Entregue")
 
-      try {
-        let backendOrder = null;
-        let localStorageOrder = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
-  
-        if(orderId) {
-          const response = await api.get(`/orders/${orderId}`);
-
-          if(response.data && response.data.order) {
-            const dishDetails = typeof response.data.order.details === "string"
-              ? JSON.parse(response.data.order.details)
-              : response.data.order.details;
-  
-            backendOrder = {
-              ...response.data.order,
-              details: dishDetails
-            };
-  
-            setOrder(backendOrder);
-            calculateTotal([{ description: dishDetails }]);
-  
-            if (response.data.order.status === "Preparando") {
-              setIsAprovedOpen(true);
-            }
-          }
-          
-          else {
-            setOrder([]);
-          }
-        }
-        
-        else {
-          if (localStorageOrder.length > 0) {
-            setOrder(localStorageOrder);
-            calculateTotal(localStorageOrder);
-          }
-        }
-
-        if (!backendOrder && localStorageOrder.length > 0) {
-          calculateTotal(localStorageOrder);
-        }
-      }
-      
-      catch (error) {
-        console.error("Error loading orders:", error);
-      }
-    }
-  
-    loadOrders();
-  }, [orderId]);
+  const showPendindModal = !isOrderDisabled;
   
   function calculateTotal(orderList) {
     if(!Array.isArray(orderList)) {
@@ -200,9 +151,58 @@ export function Payment(){
     setSelectedPayment(null);
   };
 
-  const isOrderDisabled = order && (order.status === "Preparando" || order.status === "Entregue")
+  useEffect(() => {
+    async function loadOrders() {
 
-  const showPendindModal = !isOrderDisabled;
+      try {
+        let backendOrder = null;
+        let localStorageOrder = JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
+  
+        if(orderId) {
+          const response = await api.get(`/orders/${orderId}`);
+
+          if(response.data && response.data.order) {
+            const dishDetails = typeof response.data.order.details === "string"
+              ? JSON.parse(response.data.order.details)
+              : response.data.order.details;
+  
+            backendOrder = {
+              ...response.data.order,
+              details: dishDetails
+            };
+  
+            setOrder(backendOrder);
+            calculateTotal([{ description: dishDetails }]);
+  
+            if (response.data.order.status === "Preparando") {
+              setIsAprovedOpen(true);
+            }
+          }
+          
+          else {
+            setOrder([]);
+          }
+        }
+        
+        else {
+          if (localStorageOrder.length > 0) {
+            setOrder(localStorageOrder);
+            calculateTotal(localStorageOrder);
+          }
+        }
+
+        if (!backendOrder && localStorageOrder.length > 0) {
+          calculateTotal(localStorageOrder);
+        }
+      }
+      
+      catch (error) {
+        console.error("Error loading orders:", error);
+      }
+    }
+  
+    loadOrders();
+  }, [orderId]);
 
   return(
     <>

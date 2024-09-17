@@ -26,7 +26,7 @@ export function Stepper({onChange}){
 
     if(onChange) onChange(newCount);
     return newCount;
-  }
+  };
 
   return (
     <Container>

@@ -19,7 +19,7 @@ export default createGlobalStyle`
     background-color: ${({theme}) => theme.COLORS.DARK_400};
 
     &::-webkit-scrollbar {
-      width: 10px;
+      width: 1rem;
     }
 
     &::-webkit-scrollbar-track {
@@ -28,7 +28,7 @@ export default createGlobalStyle`
 
     &::-webkit-scrollbar-thumb {
       background: ${({theme}) => theme.COLORS.DARK_800};
-      border-radius: 5px;
+      border-radius: 0.5rem;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -38,21 +38,21 @@ export default createGlobalStyle`
 
   body, input, button, textarea {
     font-family: "Roboto", sans-serif;
-    font-size: 16px;
+    font-size: 1.6rem;
     outline: none;
   }
 
   #root {
     height: 100vh;
     display: grid;
-    grid-template-rows: 96px 1fr 78px;
+    grid-template-rows: 9.6rem 1fr 7.8rem;
   }
 
   main {
     margin: auto;
     height: 100%;
     width: 100%;
-    max-width: 1120px;
+    max-width: 112rem;
   }
 
   a {

@@ -4,10 +4,10 @@ export const Container = styled.article`
   display: flex;
   align-items: center;
 
-  height: 32px;
+  height: 3.2rem;
 
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 1rem 1.6rem;
+  border-radius: 0.8rem;
 
   border: ${({theme, isNew}) => isNew ? `1px dashed ${theme.COLORS.LIGHT_600}` : "none"};
   background-color: ${({theme, isNew}) => isNew ? "transparent" : theme.COLORS.LIGHT_600};
@@ -21,15 +21,15 @@ export const Container = styled.article`
   }
 
   > input {
-    width: ${({isNew}) => isNew ? '66px' : '20px'};
+    width: ${({isNew}) => isNew ? '6.6rem' : '2rem'};
   }
 
   > button {
-    margin-left: 4px;
+    margin-left: 0.4rem;
   }
   
   svg {
-    width: 14px;
-    height: 14px;
+    width: 1.4rem;
+    height: 1.4rem;
   }
 `;

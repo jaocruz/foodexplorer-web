@@ -3,18 +3,18 @@ import styled from "styled-components";
 export const Container = styled.main`
 
   > h1 {
-    margin: 34px 0;
+    margin: 3.4rem 0;
     ${({theme}) => theme.FONTS.POPPINS_400medium};
   }
 
   > section {
-    max-width: 1120px;
+    max-width: 112rem;
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 
     justify-content: space-between;
-    gap: 48px;
+    gap: 4.8rem;
 
     .favorite-dishes {
       display: flex;
@@ -23,12 +23,12 @@ export const Container = styled.main`
       width: fit-content;
       white-space: nowrap;
 
-      padding: 16px 0;
-      column-gap: 12px;
+      padding: 1.6rem 0;
+      column-gap: 1.2rem;
 
       img {
-        width: 72px;
-        height: 72px;
+        width: 7.2rem;
+        height: 7.2rem;
       }
 
       h1 {

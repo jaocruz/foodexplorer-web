@@ -1,34 +1,39 @@
-import { Link, useNavigate } from "react-router-dom";
-
-import { useAuth } from "../../hooks/auth";
-import { USER_ROLE } from "../../utils/user-roles";
-
 import { Container } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
-import { Button } from "../../components/button"
-import { Stepper } from "../../components/stepper"
-import { IngredientTag } from "../../components/ingredient-tag"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
+
+import { Button } from "../../components/button";
+import { Stepper } from "../../components/stepper";
+import { IngredientTag } from "../../components/ingredient-tag";
+
+import dishPlaceholder from "/placeholder.png";
 
 import { PiCaretLeft } from "react-icons/pi";
 
 import { api } from "../../services/api";
+
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/user-roles";
+
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
-import { SideMenu } from "../../components/side-menu";
-
-import dishPlaceholder from "/placeholder.png";
+import { useParams, useNavigate } from "react-router-dom";
 
 export function DishDetails(){
   const { user, addToOrder } = useAuth();
 
-  const navigate = useNavigate();
+  const params = useParams();
+
+  const [data, setData] = useState("");
 
   const [quantity, setQuantity] = useState(1);
-
+  
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
+  
+  const navigate = useNavigate();
 
   function handleBack(){
     navigate(-1)
@@ -42,10 +47,6 @@ export function DishDetails(){
     addToOrder(data.id, quantity)
   };
 
-  const [data, setData] = useState("");
-
-  const params = useParams();
-
   useEffect(() => {
     async function fetchDishs(){
       const response = await api.get(`/dishs/${params.id}`)
@@ -54,8 +55,6 @@ export function DishDetails(){
 
     fetchDishs()
   }, []);
-
-  const dishURL = data.photo ? `${api.defaults.baseURL}/files/${data.photo}` : dishPlaceholder;
 
   return (
     <>

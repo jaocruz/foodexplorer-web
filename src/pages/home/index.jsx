@@ -1,15 +1,15 @@
 import { Container, Banner, Carousel, Gradient } from "./styles";
 
-import { Header } from "../../components/header"
-import { Footer } from "../../components/footer"
-import { DishCard } from "../../components/dish-card"
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { SideMenu } from "../../components/side-menu";
+
+import { DishCard } from "../../components/dish-card";
 
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 
 import { api } from "../../services/api";
 import { useState, useEffect } from "react";
-
-import { SideMenu } from "../../components/side-menu";
 
 const categories = {
   "Refeicao": "Refeições",
@@ -76,6 +76,10 @@ export function Home(){
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  const handleSearch = (searchTerm) => {
+    setSearch(searchTerm);
+  };
+
   useEffect(() => {
     const loadDishes = async() => {
       try {
@@ -90,10 +94,6 @@ export function Home(){
 
     loadDishes();
   }, []);
-
-  const handleSearch = (searchTerm) => {
-    setSearch(searchTerm);
-  }
 
   return (
     <>
@@ -131,7 +131,6 @@ export function Home(){
       {
         dishes.length === 0 && <p>Nenhum prato foi encontrado.</p>
       }
-
     </Container>
 
     <Footer/>

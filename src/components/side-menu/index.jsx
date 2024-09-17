@@ -5,18 +5,18 @@ import { Input } from "../input";
 
 import { PiX, PiMagnifyingGlass } from "react-icons/pi";
 
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { useState } from "react";
-
 import { USER_ROLE } from "../../utils/user-roles";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SideMenu({ menuIsOpen, onCloseMenu, onSearch }){
   const { user, signOut } = useAuth();
 
-  const navigate = useNavigate();
-  
   const [search, setSearch] = useState("");
+  
+  const navigate = useNavigate();
 
   function handleSignOut() {
     navigate("/")
